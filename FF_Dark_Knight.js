@@ -170,3 +170,29 @@ ClassList['dark-knight-ff'] = {
 
 	}
 };
+
+AddSubClass("dark-knight-ff", "abyss-knight", {
+	regExpSearch: /abyss/,
+	subname: "Abyss Knight",
+	fullname: "Abyss Knight",
+	source: [["FF", 64]],
+	features: {
+		"subclassfeature3":{
+			name:"Dark Burst",
+			source: [["FF", 64]],
+			minlevel:3,
+			description:"I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage." //TODO ADD DC (well of dsrkness)
+		},
+		"adversity":{
+			name: "Adversity",
+			source: [["FF", 64]],
+			minlevel:6,
+			description:"For every 20 hit points missing, I gain +1 to attack and dmg rolls (cha max)\nI gain resistance to necrotic dmg" //TODO check if it can be calculated
+		},
+		"supernatural sense":{
+			name:"Supernatural Sense",
+			minlevel:11,
+			description:"I can cast Detect Good and Evil at will.\nI can cast Detect Thoughts at a willing crea or spend 2 Well of Darkness points to cast it on an unwilling creature"
+		}
+	}
+});
