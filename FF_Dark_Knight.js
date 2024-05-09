@@ -1,11 +1,11 @@
 var iFileName = "FF_Dark_Knight.js";
 var className = "Dark Knight";
-RequiredSheetVersion("13.1.0");
+// RequiredSheetVersion("13.1.0");
 // This file adds the content from the FFXIV: Dark Knight article to MPMB's Character Record Sheet
 
 // Define the source
 SourceList["FF:A"] = {
-	name: `FFXIV x D&D Compendium: ${className}`,
+	name: "FFXIV x D&D Compendium: Dark Knight",
 	abbreviation: "FF:DK",
 	group: "Final Fantasy",
 	url: "https://www.gmbinder.com/share/-LsDqsNbupzeLhkTIcPv",
@@ -15,17 +15,17 @@ SourceList["FF:A"] = {
 // Adds a new class, the Dark Knight, with 3 subclasses
 ClassList['dark-knight-ff'] = {
 	regExpSearch: /^(?=.*dark)(?=.*knight).*$/i,
-	name: `${className}`,
+	name: "Dark Knight",
 	source: [["FF", 64]],
-	primaryAbility: `\n \u2022 ${className}: Strength;`,
+	primaryAbility: "\n \u2022 Dark Knight: Strength;",
 	abilitySave: 6, //SPell, charisma
-	prereqs: `\n \u2022 ${className}: Strength 13; Charisma 13`,
+	prereqs: "\n \u2022 Dark Knight: Strength 13; Charisma 13",
 	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5, 5], //TODO
 	die: 10,
 	saves: ["Con", "Cha"],
 	skills: [
-		`\n\n ${className}: Choose two from Athletics, Arcana, History, Insight, Intimidation, Perception, Survival`,
-		`\n\n ${className}: Choose two from Athletics, Arcana, History, Insight, Intimidation, Perception, Survival`
+		"\n\n Dark Knight: Choose two from Athletics, Arcana, History, Insight, Intimidation, Perception, Survival",
+		"\n\n Dark Knight: Choose two from Athletics, Arcana, History, Insight, Intimidation, Perception, Survival"
 	],
 	armor: [
 		[true, true, true, true], //as first class
@@ -35,8 +35,8 @@ ClassList['dark-knight-ff'] = {
 		[true, true],
 		[true, true]
 	],
-	equipment: `${className} starting equipment:\n \u2022 Chain mail -or- Hide armor;\n \u2022 A martial weapon and a shield -or- Two martial weapons;\n \u2022 A short bow and 20 arrows -or- Two daggers;\n \u2022 An explorer's pack -or- A dungeoneer's pack`,
-	subclasses: [`${className} Archetype`, []], // empty because addsubclass adds it
+	equipment: "Dark Knight starting equipment:\n \u2022 Chain mail -or- Hide armor;\n \u2022 A martial weapon and a shield -or- Two martial weapons;\n \u2022 A short bow and 20 arrows -or- Two daggers;\n \u2022 An explorer's pack -or- A dungeoneer's pack",
+	subclasses: ["Dark Knight Archetype", []], // empty because addsubclass adds it
 	attacks: [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
 	spellcastingFactor: 3, // todo 
 	// spellcastingKnown: {
@@ -72,21 +72,21 @@ ClassList['dark-knight-ff'] = {
 			choicesNotInMenu: true, //check!! todo
 			defense: {
 				name: "Defense Fighting Style", //required;
-				description: "\n   " + "While you are wearing armor, you gain +1 bonus to AC",
+				description: "\n While you are wearing armor, you gain +1 bonus to AC",
 				extraAC: {
 					name: "Defense Fighting Style", // necessary for features referring to fighting style properties directly
 					mod: 1,
 					text: "I gain a +1 bonus to AC while wearing armor.",
-					stopeval: function (v) { return !v.wearingArmor; }
+					// stopeval: function (v) { return !v.wearingArmor; }
 				}
 			},
 			dueling: {
 				name: "Dueling Fighting Style",
-				description: desc("+2 to damage rolls when wielding a melee weapon in one hand and no other weapons"),
+				description: "+2 to damage rolls when wielding a melee weapon in one hand and no other weapons",
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
-							for (let i = 1; i <= FieldNumbers.actions; i++) {
+							for (var i = 1; i <= FieldNumbers.actions; i++) {
 								if ((/off.hand.attack/i).test(What('Bonus Action ' + i))) return;
 							};
 							if (v.isMeleeWeapon && !v.isNaturalWeapon && !(/((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i).test(fields.Description)) output.extraDmg += 2;
@@ -97,7 +97,7 @@ ClassList['dark-knight-ff'] = {
 			},
 			great_weapon: {
 				name: "Great Weapon Fighting Style",
-				description: desc("Reroll 1 or 2 on damage if wielding two-handed/versatile melee weapon in both hands"),
+				description: "Reroll 1 or 2 on damage if wielding two-handed/versatile melee weapon in both hands",
 				calcChanges: {
 					atkAdd: [
 						function (fields, v) {
@@ -111,15 +111,12 @@ ClassList['dark-knight-ff'] = {
 			},
 			protection: {
 				name: "Protection Fighting Style",
-				description: desc([
-					"As a reaction, I can give disadv. on an attack made vs. someone within 5 ft of me",
-					"I need to be wielding a shield and be able to see the attacker to do this"
-				]),
+				description: "As a reaction, I can give disadv. on an attack made vs. someone within 5 ft of me\nI need to be wielding a shield and be able to see the attacker to do this",
 				action: ["reaction", ""]
 			},
 			two_weapon: {
 				name: "Two-Weapon Fighting Style",
-				description: desc("I can add my ability modifier to the damage of my off-hand attacks"),
+				description: "I can add my ability modifier to the damage of my off-hand attacks",
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
@@ -141,7 +138,7 @@ ClassList['dark-knight-ff'] = {
 			name: "Dark Knight Archetype",
 			source: ["FF", 66],
 			minlevel: 3,
-			description: desc('Choose a Dark Knight Archetype you strive to emulate and put it in the "Class" field ')
+			description: 'Choose a Dark Knight Archetype you strive to emulate and put it in the "Class" field '
 		},
 
 		"the blackest night": {
@@ -164,7 +161,7 @@ ClassList['dark-knight-ff'] = {
 			name: "Curse of the Abyss",
 			source: ["FF", 66],
 			minlevel: 10,
-			description: `I can use my bonus action to curse a creature for 1min. It ends if the crea. dies, or I am incapacitated.\n I can add my prof to damage rolls against the cursed crea. \nIf I roll a nat 19 or 20 against the cursed crea, it is a crit.\nIf the crea dies, I regain ${classname} lvl + cha hit points and 1 Well of Darkness point`,
+			description: "I can use my bonus action to curse a creature for 1min. It ends if the crea. dies, or I am incapacitated.\n I can add my prof to damage rolls against the cursed crea. \nIf I roll a nat 19 or 20 against the cursed crea, it is a crit.\nIf the crea dies, I regain Dark Knight lvl + cha hit points and 1 Well of Darkness point",
 			action: ["bonus action", "Curse of the Abyss"],
 		}
 
