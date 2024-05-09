@@ -20,7 +20,7 @@ ClassList['dark-knight-ff'] = {
 	primaryAbility: "\n \u2022 Dark Knight: Strength;",
 	abilitySave: 6, //SPell, charisma
 	prereqs: "\n \u2022 Dark Knight: Strength 13; Charisma 13",
-	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5, 5], //TODO
+	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
 	die: 10,
 	saves: ["Con", "Cha"],
 	skills: [
@@ -29,7 +29,7 @@ ClassList['dark-knight-ff'] = {
 	],
 	armor: [
 		[true, true, true, true], //as first class
-		[true, true, false, true] //as multiclass TODO
+		[true, true, false, true] //as multiclass
 	],
 	weapons: [
 		[true, true],
@@ -38,10 +38,14 @@ ClassList['dark-knight-ff'] = {
 	equipment: "Dark Knight starting equipment:\n \u2022 Chain mail -or- Hide armor;\n \u2022 A martial weapon and a shield -or- Two martial weapons;\n \u2022 A short bow and 20 arrows -or- Two daggers;\n \u2022 An explorer's pack -or- A dungeoneer's pack",
 	subclasses: ["Dark Knight Archetype", []], // empty because addsubclass adds it
 	attacks: [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-	spellcastingFactor: 3, // todo 
-	// spellcastingKnown: {
-	// 	spells: [0, 0, 3, 4, 4, 4, 5, 6, 6, 7, 8, 8, 9, 10, 10, 11, 11, 11, 12, 13]
-	// },
+	spellcastingFactor: 3,
+	spellcastingKnown: {
+		spells: [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+	},
+	spellcastingList: {
+		class: "any",
+		spells: ["detect evil and good","detect thoughts","cause fear","compelled duel"]
+	},
 	features: { //required;  the class features. Each works the same way, so only a couple of example are given. You can add as many as you want
 		"well of darkness": {
 			name: "Well of Darkness",
@@ -69,7 +73,7 @@ ClassList['dark-knight-ff'] = {
 			minlevel: 2,
 			description: "\n   " + "Choose a Fighting Style using the \"Choose Feature\" button above",
 			choices: ["defense", "dueling", "great_weapon", "protection", "two_weapon"],
-			choicesNotInMenu: true, //check!! todo
+			choicesNotInMenu: false, //check!! todo
 			defense: {
 				name: "Defense Fighting Style", //required;
 				description: "\n While you are wearing armor, you gain +1 bonus to AC",
@@ -77,7 +81,7 @@ ClassList['dark-knight-ff'] = {
 					name: "Defense Fighting Style", // necessary for features referring to fighting style properties directly
 					mod: 1,
 					text: "I gain a +1 bonus to AC while wearing armor.",
-					// stopeval: function (v) { return !v.wearingArmor; }
+					stopeval: function (v) { return !v.wearingArmor; }
 				}
 			},
 			dueling: {
@@ -169,27 +173,27 @@ ClassList['dark-knight-ff'] = {
 };
 
 AddSubClass("dark-knight-ff", "abyss-knight", {
-	regExpSearch: /abyss/,
+	regExpSearch: /^(?=.*abyss)(?=.*knight).*$/i,
 	subname: "Abyss Knight",
 	fullname: "Abyss Knight",
 	source: [["FF", 64]],
 	features: {
-		"subclassfeature3":{
-			name:"Dark Burst",
+		"subclassfeature3": {
+			name: "Dark Burst",
 			source: [["FF", 64]],
-			minlevel:3,
-			description:"I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage." //TODO ADD DC (well of dsrkness)
+			minlevel: 3,
+			description: "I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage." //TODO ADD DC (well of dsrkness)
 		},
-		"adversity":{
+		"adversity": {
 			name: "Adversity",
 			source: [["FF", 64]],
-			minlevel:6,
-			description:"For every 20 hit points missing, I gain +1 to attack and dmg rolls (cha max)\nI gain resistance to necrotic dmg" //TODO check if it can be calculated
+			minlevel: 6,
+			description: "For every 20 hit points missing, I gain +1 to attack and dmg rolls (cha max)\nI gain resistance to necrotic dmg" //TODO check if it can be calculated
 		},
-		"supernatural sense":{
-			name:"Supernatural Sense",
-			minlevel:11,
-			description:"I can cast Detect Good and Evil at will.\nI can cast Detect Thoughts at a willing crea or spend 2 Well of Darkness points to cast it on an unwilling creature"
+		"supernatural sense": {
+			name: "Supernatural Sense",
+			minlevel: 11,
+			description: "I can cast Detect Good and Evil at will.\nI can cast Detect Thoughts at a willing crea or spend 2 Well of Darkness points to cast it on an unwilling creature"
 		}
 	}
 });
