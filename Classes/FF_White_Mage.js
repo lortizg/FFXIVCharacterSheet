@@ -1,10 +1,38 @@
+/*
+	Copyright @lortizg 2024
+*/
+
+// --- global vars ---
+var ABILITIES_ABBR = {
+	STRENGTH: "Str",
+	DEXTERITY: "Dex",
+	CONSTITUTION: "Con",
+	INTELLIGENCE: "Int",
+	WISDOM: "Wis",
+	CHARISMA: "Cha",
+}
+
+// --- File particular vars ---
 var iFileName = "FF_White_Mage.js";
 var className = "whitemage";
 var classNameTitle = "White Mage";
+var skillsToSelect = "Arcana, Deception, Insight, Persuasion, History, Religion, Medicine";
+var classArmorProfs = {
+	LIGHT: true,
+	MEDIUM: false,
+	HEAVY: false,
+	SHIELD: false
+}
+var classWeaponProfs = {
+	SIMPLE: true,
+	MARTIAL: false,
+	OTHER: []
+}
+
 
 RequiredSheetVersion("13.0.6");
 
-// Define the source
+// --- Source ---
 SourceList["FF:A"] = {
 	name: "FFXIV x D&D Compendium: " + classNameTitle,
 	abbreviation: "FF:WM",
@@ -13,6 +41,7 @@ SourceList["FF:A"] = {
 	date: "2020/11/25"
 };
 
+// --- White Mage class ---
 ClassList[className] = {
 	name: classNameTitle,
 	regExpSearch: /^(?=.*white)(?=.*mage).*$/i,
@@ -21,13 +50,16 @@ ClassList[className] = {
 	prereqs: "Wisdom 13",
 	die: 6,
 	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-	saves: ["Wis", "Cha"],
-	skills: ["\n\n" + className + ": Choose two from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival.", "\n\n" + className + ": Choose one from Athletics, Intimidation, Perception, and Survival."],
+	saves: [ABILITIES_ABBR.WISDOM, ABILITIES_ABBR.CHARISMA],
+	skills: [
+		"\n\n" + className + ": Choose two from " + skillsToSelect + ".",
+		"\n\n" + className + ""
+	],
 	armorProfs: {
-		primary: [true, false, false, false]
+		primary: [classArmorProfs.LIGHT, classArmorProfs.MEDIUM, classArmorProfs.HEAVY, classArmorProfs.SHIELD]
 	},
 	weaponProfs: {
-		primary: [true, false]
+		primary: [classWeaponProfs.SIMPLE, classWeaponProfs.MARTIAL, classWeaponProfs.OTHER]
 	},
 	equipment: className + " starting equipment:\n \u2022 A dagger -or- a quarter staff;\n \u2022 A light crossbow and 20 bolts -or- a simple weapon;\n \u2022 A spellcasting focus (cane, staff, wand...);\n \u2022 An explorer's pack -or- a scholar's pack",
 	subclasses: ["Conjury Discipline", []],
@@ -39,5 +71,5 @@ ClassList[className] = {
 		spells: "list",
 		prepared: true,
 	},
-	features: {},
+	features: {}
 };
