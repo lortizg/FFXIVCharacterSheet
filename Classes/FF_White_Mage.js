@@ -11,7 +11,8 @@ var ABILITIES_ABBR = {
 	WISDOM: "Wis",
 	CHARISMA: "Cha",
 }
-var bulletedDot = "\n \u2022 ";
+var bulletedLine = "\n \u2022 ";
+var tabbedLine = "\n   ";
 
 // --- File particular vars ---
 var iFileName = "FF_White_Mage.js";
@@ -62,12 +63,12 @@ ClassList[className] = {
 	weaponProfs: {
 		primary: [classWeaponProfs.SIMPLE, classWeaponProfs.MARTIAL, classWeaponProfs.OTHER]
 	},
-	equipment: 
-		className + " starting equipment:" 
-		+ bulletedDot + "A dagger -or- a quarter staff;" 
-		+ bulletedDot + "A light crossbow and 20 bolts -or- a simple weapon;" 
-		+ bulletedDot + "A spellcasting focus (cane, staff, wand...);" 
-		+ bulletedDot + "An explorer's pack -or- a scholar's pack",
+	equipment:
+		className + " starting equipment:"
+		+ bulletedLine + "A dagger -or- a quarter staff;"
+		+ bulletedLine + "A light crossbow and 20 bolts -or- a simple weapon;"
+		+ bulletedLine + "A spellcasting focus (cane, staff, wand...);"
+		+ bulletedLine + "An explorer's pack -or- a scholar's pack",
 	subclasses: ["Conjury Discipline", []],
 	attacks: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 	abilitySave: 5,
@@ -77,5 +78,45 @@ ClassList[className] = {
 		spells: "list",
 		prepared: true,
 	},
-	features: {}
+	// spellcastingList : { 
+	// 	class : "wizard",
+	// 	school : ["Evoc", "Abjur"],
+	// 	level : [0, 4],
+	// 	ritual : false, 
+	// 	spells : ["light", "mending"],
+	// 	notspells : ["antipathy/sympathy", "tsunami"], 
+	// },
+	// spellcastingExtra:[],
+	features: {
+		spellcasting: {
+			name: "Spellcasting",
+			source: [["FF", 130], ["FF", 300]],
+			minlevel: 1,
+			description:
+				tabbedLine + "I can cast prepared white mage cantrips/spells, using Wisdom as my spellcasting ability"
+				+ tabbedLine + "I can use an arcane focus as a spellcasting focus"
+				+ tabbedLine + "I can cast all white mage spells in my spellbook as rituals if they have the ritual tag",
+			additional: levels.map(function (n, i) {
+				return [3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5][i] + " cantrips known";
+			})
+		},
+
+		confession: {
+			name: "Confession",
+			source: ["FF", 130],
+			minlevel: 1,
+			description:
+				tabbedLine + "I can cast Prayer to have 1 charge of Confession"
+				+ tabbedLine + "I can cast it again have x2 charges + 1",
+			recovery: "long rest",
+			action: ["bonus action", "Prayer"]
+		},
+		reach_of_the_unseen: {
+			name: "Reach of the Unseen",
+			source: ["FF", 130],
+			minlevel: 1,
+			description: tabbedLine + "I can spend 1 charge of Confession to convert a touch spell into a ranged spell (30ft)"
+		}
+
+	}
 };
