@@ -11,6 +11,7 @@ var ABILITIES_ABBR = {
 	WISDOM: "Wis",
 	CHARISMA: "Cha",
 }
+var bulletedDot = "\n \u2022 ";
 
 // --- File particular vars ---
 var iFileName = "FF_White_Mage.js";
@@ -61,7 +62,12 @@ ClassList[className] = {
 	weaponProfs: {
 		primary: [classWeaponProfs.SIMPLE, classWeaponProfs.MARTIAL, classWeaponProfs.OTHER]
 	},
-	equipment: className + " starting equipment:\n \u2022 A dagger -or- a quarter staff;\n \u2022 A light crossbow and 20 bolts -or- a simple weapon;\n \u2022 A spellcasting focus (cane, staff, wand...);\n \u2022 An explorer's pack -or- a scholar's pack",
+	equipment: 
+		className + " starting equipment:" 
+		+ bulletedDot + "A dagger -or- a quarter staff;" 
+		+ bulletedDot + "A light crossbow and 20 bolts -or- a simple weapon;" 
+		+ bulletedDot + "A spellcasting focus (cane, staff, wand...);" 
+		+ bulletedDot + "An explorer's pack -or- a scholar's pack",
 	subclasses: ["Conjury Discipline", []],
 	attacks: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 	abilitySave: 5,
