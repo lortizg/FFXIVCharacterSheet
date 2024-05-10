@@ -108,15 +108,26 @@ ClassList[className] = {
 			description:
 				tabbedLine + "I can cast Prayer to have 1 charge of Confession"
 				+ tabbedLine + "I can cast it again have x2 charges + 1",
-			recovery: "long rest",
+			recovery: "ESP",
+			usages: [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6],
 			action: ["bonus action", "Prayer"]
 		},
+
 		reach_of_the_unseen: {
 			name: "Reach of the Unseen",
 			source: ["FF", 130],
 			minlevel: 1,
 			description: tabbedLine + "I can spend 1 charge of Confession to convert a touch spell into a ranged spell (30ft)"
-		}
+		},
 
+		afflatus_solace: {
+			name: "Afflatus Solace",
+			source: ["FF", 130],
+			minlevel: 2,
+			description:
+				tabbedLine + "I can spend x Confession charges to heal xd4 + my profficency. I cannot heal creatures with 0 hit points"
+				+ tabbedLine + "I CANNOT use Prayer until my next turn.",
+			action: ["action", "Afflatus Solace"]
+		}
 	}
 };
