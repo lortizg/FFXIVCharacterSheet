@@ -18,6 +18,8 @@ var tabbedLine = "\n   ";
 var iFileName = "FF_White_Mage.js";
 var className = "whitemage";
 var classNameTitle = "White Mage";
+var subclass1Name = "elementalist";
+var subclass1Title = "Elementalist";
 var skillsToSelect = "Arcana, Deception, Insight, Persuasion, History, Religion, Medicine";
 var classArmorProfs = {
 	LIGHT: true,
@@ -131,3 +133,22 @@ ClassList[className] = {
 		}
 	}
 };
+
+AddSubClass(className, subclass1Name, {
+	regExpSearch: /^(?=.*elementalist).*$/i,
+	subname: subclass1Title,
+	fullname: subclass1Title,
+	source: ["FF", 131],
+	features: {
+		subclassfeature2: {
+			name: "Elemental Blessing",
+			source: ["FF", 131],
+			minlevel: 2,
+			description:
+				tabbedLine + "I can expend Confession charges to bless a weapon you can see within 30ft during WisModifier rounds"
+				+ tabbedLine + "[1 Charge] - The damage type of the weapon changes to cold, radiant or thunder."
+				+ tabbedLine + "[2 Charges] - The weapon gains a +1 bonus on attack rolls."
+				+ tabbedLine + "[3 Charges] - The weapon's damage rolls deal bonus damage equal to your proficiency bonus."
+		}
+	}
+});
