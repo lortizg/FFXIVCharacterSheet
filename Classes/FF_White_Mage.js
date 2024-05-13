@@ -30,7 +30,7 @@ var classArmorProfs = {
 var classWeaponProfs = {
 	SIMPLE: true,
 	MARTIAL: false,
-	OTHER: []
+	OTHER: ''
 }
 
 
