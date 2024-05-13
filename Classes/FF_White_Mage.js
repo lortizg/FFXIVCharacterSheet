@@ -81,7 +81,6 @@ ClassList[className] = {
 		prepared: true,
 	},
 	spellcastingList : { 
-		class : "any",
 		spells : [
 			// "Create Bonfire",
 			"druidcraft",
