@@ -22,7 +22,7 @@ var subclass1Name = "elementalist";
 var subclass1Title = "Elementalist";
 var skillsToSelect = "Arcana, Deception, Insight, Persuasion, History, Religion, Medicine";
 var classArmorProfs = {
-	LIGHT: true,
+	LIGHT: false,
 	MEDIUM: false,
 	HEAVY: false,
 	SHIELD: false
