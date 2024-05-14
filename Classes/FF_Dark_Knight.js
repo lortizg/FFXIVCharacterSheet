@@ -1,52 +1,87 @@
-var iFileName = "FF_Dark_Knight.js";
-var className = "Dark Knight";
-// RequiredSheetVersion("13.1.0");
-// This file adds the content from the FFXIV: Dark Knight article to MPMB's Character Record Sheet
+/*
+	Copyright @lortizg 2024
+*/
 
-// Define the source
+// --- global vars ---
+var ABILITIES_ABBR = {
+	STRENGTH: "Str",
+	DEXTERITY: "Dex",
+	CONSTITUTION: "Con",
+	INTELLIGENCE: "Int",
+	WISDOM: "Wis",
+	CHARISMA: "Cha",
+}
+var bulletedLine = "\n \u2022 ";
+var tabbedLine = "\n   ";
+
+// --- File particular vars ---
+var iFileName = "FF_Dark_Knight.js";
+var className = "darkknight";
+var classNameTitle = "Dark Knight";
+var subclass1Name = "abyssknight";
+var subclass1Title = "Abyss Knight";
+var skillsToSelect = "Athletics, Arcana, History, Insight, Intimidation, Perception, Survival";
+var classArmorProfs = {
+	LIGHT: true,
+	MEDIUM: true,
+	HEAVY: true,
+	SHIELD: true
+}
+var classWeaponProfs = {
+	SIMPLE: true,
+	MARTIAL: true,
+	OTHER: ''
+}
+
+
+RequiredSheetVersion("13.0.6");
+
+// --- Source ---
 SourceList["FF:A"] = {
-	name: "FFXIV x D&D Compendium: Dark Knight",
+	name: "FFXIV x D&D Compendium: " + classNameTitle,
 	abbreviation: "FF:DK",
 	group: "Final Fantasy",
 	url: "https://www.gmbinder.com/share/-LsDqsNbupzeLhkTIcPv",
 	date: "2020/11/25"
 };
 
-// Adds a new class, the Dark Knight, with 3 subclasses
-ClassList['dark-knight-ff'] = {
+// --- Dark Knight class ---
+ClassList[className] = {
+	name: classNameTitle,
 	regExpSearch: /^(?=.*dark)(?=.*knight).*$/i,
-	name: "Dark Knight",
-	source: [["FF", 64]],
-	primaryAbility: "\n \u2022 Dark Knight: Strength;",
-	abilitySave: 6, //SPell, charisma
-	prereqs: "\n \u2022 Dark Knight: Strength 13; Charisma 13",
-	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+	source: ["FF", 128],
+	primaryAbility: "Strength",
+	prereqs: "Strength 13 or Charisma 13",
 	die: 10,
-	saves: ["Con", "Cha"],
+	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+	saves: [ABILITIES_ABBR.CONSTITUTION, ABILITIES_ABBR.CHARISMA],
 	skills: [
-		"\n\n Dark Knight: Choose two from Athletics, Arcana, History, Insight, Intimidation, Perception, Survival",
-		"\n\n Dark Knight: Choose two from Athletics, Arcana, History, Insight, Intimidation, Perception, Survival"
+		"\n\n" + className + ": Choose two from " + skillsToSelect + ".",
+		"\n\n" + className + ""
 	],
-	armor: [
-		[true, true, true, true], //as first class
-		[true, true, false, true] //as multiclass
-	],
-	weapons: [
-		[true, true],
-		[true, true]
-	],
-	equipment: "Dark Knight starting equipment:\n \u2022 Chain mail -or- Hide armor;\n \u2022 A martial weapon and a shield -or- Two martial weapons;\n \u2022 A short bow and 20 arrows -or- Two daggers;\n \u2022 An explorer's pack -or- A dungeoneer's pack",
-	subclasses: ["Dark Knight Archetype", []], // empty because addsubclass adds it
+	armorProfs: {
+		primary: [classArmorProfs.LIGHT, classArmorProfs.MEDIUM, classArmorProfs.HEAVY, classArmorProfs.SHIELD]
+	},
+	weaponProfs: {
+		primary: [classWeaponProfs.SIMPLE, classWeaponProfs.MARTIAL, classWeaponProfs.OTHER]
+	},
+	equipment:
+		className + " starting equipment:"
+		+ bulletedLine + "Chain mail -or- Hide armor;"
+		+ bulletedLine + "A martial weapon and a shield -or- Two martial weapons;"
+		+ bulletedLine + "A short bow and 20 arrows -or- Two daggers;"
+		+ bulletedLine + "An explorer's pack -or- A dungeoneer's pack",
+	subclasses: ["Dark Knight Archetype", []],
 	attacks: [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+	abilitySave: 6,
 	spellcastingFactor: 3,
 	spellcastingKnown: {
 		spells: [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 	},
 	spellcastingList: {
-		class: "any",
-		spells: ["detect evil and good","detect thoughts","cause fear","compelled duel"]
+		spells: ["detect evil and good", "detect thoughts", "cause fear", "compelled duel"]
 	},
-	features: { //required;  the class features. Each works the same way, so only a couple of example are given. You can add as many as you want
+	features: {
 		"well of darkness": {
 			name: "Well of Darkness",
 			source: ["FF", 65],
@@ -62,7 +97,7 @@ ClassList['dark-knight-ff'] = {
 			name: "Darkside",
 			source: ["FF", 65],
 			minlevel: 1,
-			description: "When I make a melee weapon attack, I deal extra nectrotic damage for -cha- rounds",
+			description: tabbedLine + "When I make a melee weapon attack, I deal extra nectrotic damage for -cha- rounds",
 			additional: ["1d6", "1d6", "1d6", "1d6", "1d8", "1d8", "1d8", "1d8", "1d8", "1d8", "1d10", "1d10", "1d10", "1d10", "1d10", "1d10", "1d12", "1d12", "1d12", "1d12"],
 			recovery: "long rest",
 			action: ["bonus action", "Darkside"]
@@ -71,12 +106,12 @@ ClassList['dark-knight-ff'] = {
 			name: "Fighting Style",
 			source: ["P", 72],
 			minlevel: 2,
-			description: "\n   " + "Choose a Fighting Style using the \"Choose Feature\" button above",
+			description: tabbedLine + "Choose a Fighting Style using the \"Choose Feature\" button above",
 			choices: ["defense", "dueling", "great_weapon", "protection", "two_weapon"],
 			choicesNotInMenu: false, //check!! todo
 			defense: {
 				name: "Defense Fighting Style", //required;
-				description: "\n While you are wearing armor, you gain +1 bonus to AC",
+				description: tabbedLine + "While you are wearing armor, you gain +1 bonus to AC",
 				extraAC: {
 					name: "Defense Fighting Style", // necessary for features referring to fighting style properties directly
 					mod: 1,
@@ -86,7 +121,7 @@ ClassList['dark-knight-ff'] = {
 			},
 			dueling: {
 				name: "Dueling Fighting Style",
-				description: "+2 to damage rolls when wielding a melee weapon in one hand and no other weapons",
+				description: tabbedLine + "+2 to damage rolls when wielding a melee weapon in one hand and no other weapons",
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
@@ -101,7 +136,7 @@ ClassList['dark-knight-ff'] = {
 			},
 			great_weapon: {
 				name: "Great Weapon Fighting Style",
-				description: "Reroll 1 or 2 on damage if wielding two-handed/versatile melee weapon in both hands",
+				description: tabbedLine + "Reroll 1 or 2 on damage if wielding two-handed/versatile melee weapon in both hands",
 				calcChanges: {
 					atkAdd: [
 						function (fields, v) {
@@ -115,12 +150,12 @@ ClassList['dark-knight-ff'] = {
 			},
 			protection: {
 				name: "Protection Fighting Style",
-				description: "As a reaction, I can give disadv. on an attack made vs. someone within 5 ft of me\nI need to be wielding a shield and be able to see the attacker to do this",
+				description: tabbedLine + "As a reaction, I can give disadv. on an attack made vs. someone within 5 ft of me\nI need to be wielding a shield and be able to see the attacker to do this",
 				action: ["reaction", ""]
 			},
 			two_weapon: {
 				name: "Two-Weapon Fighting Style",
-				description: "I can add my ability modifier to the damage of my off-hand attacks",
+				description: tabbedLine + "I can add my ability modifier to the damage of my off-hand attacks",
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
@@ -135,21 +170,21 @@ ClassList['dark-knight-ff'] = {
 			name: "Burning Blood",
 			source: ["FF", 65],
 			minlevel: 2,
-			description: "I spend one hit dice to recover Well of Darkness points. Cannot exceed max",
+			description: tabbedLine + "I spend one hit dice to recover Well of Darkness points. Cannot exceed max",
 			action: ["bonus action", "Burning Blood"]
 		},
 		"subclassfeature3": {
 			name: "Dark Knight Archetype",
 			source: ["FF", 66],
 			minlevel: 3,
-			description: 'Choose a Dark Knight Archetype you strive to emulate and put it in the "Class" field '
+			description: tabbedLine + 'Choose a Dark Knight Archetype you strive to emulate and put it in the "Class" field '
 		},
 
 		"the blackest night": {
 			name: "The Blackest Night",
 			source: ["FF", 66],
 			minlevel: 7,
-			description: "I spend a hit dice to give temp hit points to me or a creature of 1d10+cha",
+			description: tabbedLine + "I spend a hit dice to give temp hit points to me or a creature of 1d10+cha",
 			action: ["bonus action", "The Blackest Night"]
 		},
 
@@ -157,7 +192,7 @@ ClassList['dark-knight-ff'] = {
 			name: "Fight or Flight",
 			source: ["FF", 66],
 			minlevel: 9,
-			description: "[2 Well of Darkness points] I can cast Cause Fear or Compelled Duel",
+			description: tabbedLine + "[2 Well of Darkness points] I can cast Cause Fear or Compelled Duel",
 			action: ["action", "Fight or Flight"]
 		},
 
@@ -165,35 +200,40 @@ ClassList['dark-knight-ff'] = {
 			name: "Curse of the Abyss",
 			source: ["FF", 66],
 			minlevel: 10,
-			description: "I can use my bonus action to curse a creature for 1min. It ends if the crea. dies, or I am incapacitated.\n I can add my prof to damage rolls against the cursed crea. \nIf I roll a nat 19 or 20 against the cursed crea, it is a crit.\nIf the crea dies, I regain Dark Knight lvl + cha hit points and 1 Well of Darkness point",
+			description: tabbedLine + "I can use my bonus action to curse a creature for 1min. It ends if the crea. dies, or I am incapacitated."
+				+ tabbedLine + "I can add my prof to damage rolls against the cursed crea."
+				+ tabbedLine + "If I roll a nat 19 or 20 against the cursed crea, it is a crit."
+				+ tabbedLine + "If the crea dies, I regain Dark Knight lvl + cha hit points and 1 Well of Darkness point",
 			action: ["bonus action", "Curse of the Abyss"],
 		}
-
 	}
 };
 
-AddSubClass("dark-knight-ff", "abyss-knight", {
+AddSubClass(className, subclass1Name, {
 	regExpSearch: /^(?=.*abyss)(?=.*knight).*$/i,
-	subname: "Abyss Knight",
-	fullname: "Abyss Knight",
+	subname: subclass1Title,
+	fullname: subclass1Title,
 	source: [["FF", 64]],
 	features: {
 		"subclassfeature3": {
 			name: "Dark Burst",
 			source: [["FF", 64]],
 			minlevel: 3,
-			description: "I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage." //TODO ADD DC (well of dsrkness)
+			description: tabbedLine + "I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage." //TODO ADD DC (well of dsrkness)
 		},
-		"adversity": {
+		"subclassfeature3.1": {
 			name: "Adversity",
 			source: [["FF", 64]],
 			minlevel: 6,
-			description: "For every 20 hit points missing, I gain +1 to attack and dmg rolls (cha max)\nI gain resistance to necrotic dmg" //TODO check if it can be calculated
+			description:
+				tabbedLine + "For every 20 hit points missing, I gain +1 to attack and dmg rolls (cha max)"
+				+ tabbedLine + "I gain resistance to necrotic dmg" //TODO check if it can be calculated
 		},
-		"supernatural sense": {
+		"subclassfeature3.2": {
 			name: "Supernatural Sense",
 			minlevel: 11,
-			description: "I can cast Detect Good and Evil at will.\nI can cast Detect Thoughts at a willing crea or spend 2 Well of Darkness points to cast it on an unwilling creature"
+			description: tabbedLine + "I can cast Detect Good and Evil at will."
+				+ tabbedLine + "I can cast Detect Thoughts at a willing crea or spend 2 Well of Darkness points to cast it on an unwilling creature"
 		}
 	}
 });
