@@ -1,0 +1,9 @@
+This file is informative. Every extra import will be listed, in case a class needs it (for spells, for example).
+
+Google sheets file with imports:
+https://docs.google.com/spreadsheets/d/15xq5gP3MujE7nc7POGngFWKLhabkun9BoUW7vvrhkTY/edit#gid=504987056
+
+
+--- List of extra imports ---
+Explorer's Guide to Wildemount
+Xanathar's Guide to Everything
