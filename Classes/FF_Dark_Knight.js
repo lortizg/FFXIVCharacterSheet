@@ -238,7 +238,7 @@ WeaponsList["dark_burst"] = {
 	list: "spell",
 	ability: 6,
 	type: "Cantrip",
-	damage: ["", " " + "3d6+1d6/SL", "necrotic"],
+	damage: ["3","6+1d6/SL", "necrotic"],
 	range: "15 ft",
 	description: "All in area 3d6+1d6/SL; Max CHA Necrotic dmg; save halves",
 	abilitytodamage: false,

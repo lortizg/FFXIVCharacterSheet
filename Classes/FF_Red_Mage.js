@@ -292,3 +292,35 @@ AddSubClass(className, subclasses[0].subclassName, {
 		}
 	}
 });
+
+SpellsList["jolt"] = {
+	name: "Jolt",
+	regExpSearch: /^(?=.*jolt).*$/i,
+	source: ["FF", 144],
+	description: "I can make a ranged spell attack. On hit it takes 1d8 force damage. 2 shards lvl5; 3 lvl11; 4 lvl17",
+	descriptionShorter: "Spell Atk; On hit take 1d8 force dmg",
+	descriptionFull: "A shard of crystallized aether streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d8 force damage." +
+		tabbedLine + "The spell creates more than one shard when you reach higher levels: two shards at 5th level, three shards at 11th level, and four shards at 17th level. You can direct the shards at the same target or at different ones. Make a separate attack roll for each shard.",
+	classes: [className],
+	level: 0,
+	school: "Evoc",
+	time: "1 a",
+	range: "60 ft",
+	rangeMetric: "18m",
+	components: "V,S",
+	duration: "Instantaneous"
+};
+
+// var JoltDamage = 
+WeaponsList["jolt"] = {
+	regExpSearch: /^(?=.*jolt).*$/i,
+	name: "Jolt",
+	source: [["FF", 144]],
+	list: "spell",
+	ability: 6,
+	type: "Cantrip",
+	damage: ["C \xD7" + 1, 8, "force"],
+	range: "60 ft",
+	description: "Each d8 is a separate beam requiring separate rolls",
+	abilitytodamage: false
+};
