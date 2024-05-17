@@ -52,8 +52,8 @@ RaceList[moonRaceName] = {
 	height: " are between 5 and 5 and a half feet tall (5\" + 2d4\")",
 	weight: "",
 	heightMetric: " are between 150 and 167 cm tall (150 + 5d4 cm)",
-	scores: [0, 0, 0, 0, 1, 0],
-	trait: moonRaceNameTitle + "(+1 Wisdom)" +
+	scores: [0, 2, 0, 0, 1, 0],
+	trait: moonRaceNameTitle + "(+2 Dexterity +1 Wisdom)" +
 		tabbedLine + "Superior Darkvision. Your darkvision has a radius of 120 ft." +
 		tabbedLine + "Tenacity. When reduced to 0HP but not killed I drop to 1HP instead.",
 	features: {
