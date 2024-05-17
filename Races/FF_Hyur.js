@@ -28,6 +28,10 @@ var highlanderRaceName = "highlander_hyur";
 var highlanderRaceNameTitle = "Highlander";
 var highlanderRaceNameTitlePlural = "Highlander";
 
+var padjalRaceName = "padjal_hyur";
+var padjalRaceNameTitle = "Padjal";
+var padjalRaceNameTitlePlural = "Padjal";
+
 RequiredSheetVersion(13);
 
 SourceList["FF:A"] = {
@@ -83,4 +87,27 @@ RaceList[highlanderRaceName] = {
 	scores: [2, 0, 0, 0, 0, 0],
 	toolProfs: [["Artisan's tools or Gaming Set or Musical Instrument"]],
 	trait: midlanderRaceNameTitle + "(+1 My Choice +2 Strength)"
+};
+
+RaceList[padjalRaceName] = {
+	regExpSearch: /^(?=.*padjal)(?=.*hyur).*$/i,
+	name: padjalRaceNameTitle,
+	sortname: "Hyur, Padjal",
+	source: [["FF", 15]],
+	plural: padjalRaceNameTitlePlural,
+	size: 3,
+	speed: {
+		walk: { spd: 30, enc: 20 }
+	},
+	languageProfs: ["Common", 2],
+	skills: ["Nature"],
+	skillstxt: "Nature, Choose any two skills",
+	age: " reach adulthood at age " + adultAge + " and live up to " + livingAge + " years",
+	height: " are from 5 to 6 and half feet tall (5\"-6\"5ft)",
+	weight: "",
+	heightMetric: " are around 150 and 200 cm tall",
+	scorestxt : "+2 Wisdom, +1 Any score",
+	scores: [0, 0, 0, 0, 2, 0],
+	toolProfs: [["Artisan's tools or Gaming Set or Musical Instrument"]],
+	trait: midlanderRaceNameTitle + "(+1 My Choice +2 Wisdom)"
 };
