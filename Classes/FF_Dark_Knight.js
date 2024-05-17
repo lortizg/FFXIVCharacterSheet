@@ -230,3 +230,17 @@ AddSubClass(className, subclass1Name, {
 		}
 	}
 });
+
+WeaponsList["dark_burst"] = {
+	regExpSearch: /^(?=.*dark)(?=.*burst).*$/i,
+	name: "Dark Burst",
+	source: [["FF", 64]],
+	list: "spell",
+	ability: 6,
+	type: "Cantrip",
+	damage: ["", " " + "3d6+1d6/SL", "necrotic"],
+	range: "15 ft",
+	description: "All in area 3d6+1d6/SL; Max CHA Necrotic dmg; save halves",
+	abilitytodamage: false,
+	dc: true
+};
