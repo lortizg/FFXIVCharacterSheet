@@ -38,7 +38,7 @@ RaceList[moonRaceName] = {
 	regExpSearch: /^(?=.*moon)(?=.*miqote).*$/i,
 	name: moonRaceNameTitle,
 	sortname: "Miqote, Moon",
-	source: [["A876:AS", 0]],
+	source: [["FF", 18]],
 	plural: moonRaceNameTitlePlural,
 	size: 3,
 	speed: {
