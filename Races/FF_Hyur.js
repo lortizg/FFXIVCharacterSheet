@@ -24,6 +24,10 @@ var midlanderRaceName = "midlander_hyur";
 var midlanderRaceNameTitle = "Midlander";
 var midlanderRaceNameTitlePlural = "Midlanders";
 
+var highlanderRaceName = "highlander_hyur";
+var highlanderRaceNameTitle = "Highlander";
+var highlanderRaceNameTitlePlural = "Highlander";
+
 RequiredSheetVersion(13);
 
 SourceList["FF:A"] = {
@@ -50,6 +54,7 @@ RaceList[midlanderRaceName] = {
 	height: " are from 5 to 6 and half feet tall (5\"-6\"5ft)",
 	weight: "",
 	heightMetric: " are around 150 and 200 cm tall",
+	scorestxt : "+2 Intelligence, +1 Any score",
 	scores: [0, 0, 0, 2, 0, 0],
 	toolProfs: [["Artisan's tools or Gaming Set or Musical Instrument"], ["Artisan's tools"]],
 	trait: midlanderRaceNameTitle + "(+1 My Choice +2 Intelligence)" +
@@ -57,3 +62,25 @@ RaceList[midlanderRaceName] = {
 		tabbedLine + "Spread of Culture. You gain proficiency with a set of artisan's tools, gaming set or musical instrument of your choice."
 };
 
+RaceList[highlanderRaceName] = {
+	regExpSearch: /^(?=.*highlander)(?=.*hyur).*$/i,
+	name: highlanderRaceNameTitle,
+	sortname: "Hyur, Highlander",
+	source: [["FF", 14]],
+	plural: highlanderRaceNameTitlePlural,
+	size: 3,
+	speed: {
+		walk: { spd: 30, enc: 20 }
+	},
+	languageProfs: ["Common", 2],
+	skills: ["Athletics"],
+	skillstxt: "Athletics, Choose any two skills",
+	age: " reach adulthood at age " + adultAge + " and live up to " + livingAge + " years",
+	height: " are from 5 to 6 and half feet tall (5\"-6\"5ft)",
+	weight: "",
+	heightMetric: " are around 150 and 200 cm tall",
+	scorestxt : "+2 Strength, +1 Any score",
+	scores: [2, 0, 0, 0, 0, 0],
+	toolProfs: [["Artisan's tools or Gaming Set or Musical Instrument"]],
+	trait: midlanderRaceNameTitle + "(+1 My Choice +2 Strength)"
+};
