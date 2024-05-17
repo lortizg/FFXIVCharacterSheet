@@ -109,7 +109,7 @@ ClassList[className] = {
 			"fire bolt",
 			"green-flame blade",
 			"gust",
-			"jolt",
+			"jolt", // From FF
 			"lightning lure",
 			"mage hand",
 			"magic stone",
@@ -157,7 +157,7 @@ ClassList[className] = {
 			"levitate",
 			"magic mouth",
 			"magic Weapon",
-			"maximillian's earthen grasp",
+			"maximilian's earthen grasp",
 			"misty step",
 			"pyrotechnics",
 			"scorching ray",
@@ -276,7 +276,7 @@ ClassList[className] = {
 
 AddSubClass(className, subclasses[0].subclassName, {
 	regExpSearch: /^(?=.*sword)(?=.*dancer).*$/i,
-	subname: subclasses[0].subclassName,
+	subname: subclasses[0].subclassTitle,
 	fullname: subclasses[0].subclassTitle,
 	source: ["FF", 131],
 	features: {
