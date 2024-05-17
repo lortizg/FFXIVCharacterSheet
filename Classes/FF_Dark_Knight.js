@@ -3,14 +3,6 @@
 */
 
 // --- global vars ---
-var ABILITIES_ABBR = {
-	STRENGTH: "Str",
-	DEXTERITY: "Dex",
-	CONSTITUTION: "Con",
-	INTELLIGENCE: "Int",
-	WISDOM: "Wis",
-	CHARISMA: "Cha",
-}
 var bulletedLine = "\n \u2022 ";
 var tabbedLine = "\n   ";
 
@@ -49,12 +41,12 @@ SourceList["FF:A"] = {
 ClassList[className] = {
 	name: classNameTitle,
 	regExpSearch: /^(?=.*dark)(?=.*knight).*$/i,
-	source: ["FF", 128],
+	source: ["FF", 63],
 	primaryAbility: "Strength",
 	prereqs: "Strength 13 or Charisma 13",
 	die: 10,
 	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-	saves: [ABILITIES_ABBR.CONSTITUTION, ABILITIES_ABBR.CHARISMA],
+	saves: [AbilityScores.fields.con, AbilityScores.fields.cha],
 	skills: [
 		"\n\n" + className + ": Choose two from " + skillsToSelect + ".",
 		"\n\n" + className + ""
@@ -75,9 +67,9 @@ ClassList[className] = {
 	attacks: [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
 	abilitySave: 6,
 	spellcastingFactor: 3,
-	spellcastingKnown: {
-		spells: [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
-	},
+	// spellcastingKnown: {
+	// 	spells: [0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+	// },
 	spellcastingList: {
 		spells: ["detect evil and good", "detect thoughts", "cause fear", "compelled duel"]
 	},
@@ -97,7 +89,8 @@ ClassList[className] = {
 			name: "Darkside",
 			source: ["FF", 65],
 			minlevel: 1,
-			description: tabbedLine + "When I make a melee weapon attack, I deal extra nectrotic damage for -cha- rounds",
+			description: tabbedLine + "When I make a melee weapon attack, I deal extra nectrotic damage for Cha Mod rounds",
+			//+ What(AbilityScores.fields.cha + ' Mod') + " rounds",
 			additional: ["1d6", "1d6", "1d6", "1d6", "1d8", "1d8", "1d8", "1d8", "1d8", "1d8", "1d10", "1d10", "1d10", "1d10", "1d10", "1d10", "1d12", "1d12", "1d12", "1d12"],
 			recovery: "long rest",
 			action: ["bonus action", "Darkside"]
@@ -173,12 +166,6 @@ ClassList[className] = {
 			description: tabbedLine + "I spend one hit dice to recover Well of Darkness points. Cannot exceed max",
 			action: ["bonus action", "Burning Blood"]
 		},
-		"subclassfeature3": {
-			name: "Dark Knight Archetype",
-			source: ["FF", 66],
-			minlevel: 3,
-			description: tabbedLine + 'Choose a Dark Knight Archetype you strive to emulate and put it in the "Class" field '
-		},
 
 		"the blackest night": {
 			name: "The Blackest Night",
@@ -213,13 +200,19 @@ AddSubClass(className, subclass1Name, {
 	regExpSearch: /^(?=.*abyss)(?=.*knight).*$/i,
 	subname: subclass1Title,
 	fullname: subclass1Title,
-	source: [["FF", 64]],
+	source: ["FF", 64],
 	features: {
 		"subclassfeature3": {
 			name: "Dark Burst",
 			source: [["FF", 64]],
 			minlevel: 3,
-			description: tabbedLine + "I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage." //TODO ADD DC (well of dsrkness)
+			description: tabbedLine + "I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage.", //TODO ADD DC (well of dsrkness),
+			action: ["action", "Dark Burst"],
+			spellcastingBonus: [{
+				name: "Dark Burst",
+				spells: ["burning hands"],
+				atwill: true
+			}],
 		},
 		"subclassfeature3.1": {
 			name: "Adversity",
