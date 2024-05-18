@@ -29,7 +29,7 @@ var classWeaponProfs = {
 RequiredSheetVersion("13.0.6");
 
 // --- Source ---
-SourceList["FF:A"] = {
+SourceList["FF:DK"] = {
 	name: "FFXIV x D&D Compendium: " + classNameTitle,
 	abbreviation: "FF:DK",
 	group: "Final Fantasy",

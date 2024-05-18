@@ -34,7 +34,7 @@ var padjalRaceNameTitlePlural = "Padjal";
 
 RequiredSheetVersion(13);
 
-SourceList["FF:A"] = {
+SourceList["FF:Hy"] = {
 	name: "FFXIV x D&D Compendium: " + 'Hyur',
 	abbreviation: "FF:Hy",
 	group: "Final Fantasy",

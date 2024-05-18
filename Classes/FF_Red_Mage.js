@@ -54,9 +54,9 @@ var subclasses = [
 RequiredSheetVersion("13.0.6");
 
 // --- Source ---
-SourceList["FF:A"] = {
+SourceList["FF:RM"] = {
 	name: "FFXIV x D&D Compendium: " + classNameTitle,
-	abbreviation: "FF:WM",
+	abbreviation: "FF:RM",
 	group: "Final Fantasy",
 	url: "https://www.gmbinder.com/share/-LsDqsNbupzeLhkTIcPv",
 	date: "2020/11/25"

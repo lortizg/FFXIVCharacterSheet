@@ -26,7 +26,7 @@ var moonRaceNameTitlePlural = "Seekers of the Moon Miqo\'te";
 
 RequiredSheetVersion(13);
 
-SourceList["FF:A"] = {
+SourceList["FF:Mq"] = {
 	name: "FFXIV x D&D Compendium: " + 'Miqo\'te',
 	abbreviation: "FF:Mq",
 	group: "Final Fantasy",
