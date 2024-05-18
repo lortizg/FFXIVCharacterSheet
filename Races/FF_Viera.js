@@ -26,9 +26,9 @@ var veenaRaceNameTitlePlural = "Veena";
 
 RequiredSheetVersion(13);
 
-SourceList["FF:A"] = {
+SourceList["FF:Vi"] = {
     name: "FFXIV x D&D Compendium: " + 'Viera',
-    abbreviation: "FF:Mq",
+    abbreviation: "FF:Vi",
     group: "Final Fantasy",
     url: "https://www.gmbinder.com/share/-LsDqsNbupzeLhkTIcPv",
     date: "2020/11/25"
