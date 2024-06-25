@@ -88,7 +88,7 @@ ClassList[className] = {
 			name: "Darkside",
 			source: ["FF", 65],
 			minlevel: 1,
-			description: tabbedLine + "When I make a melee weapon attack, I deal extra nectrotic damage for Cha Mod rounds",
+			description: tabbedLine + "[1 Well of Darkness points] When I make a melee weapon attack, I deal extra nectrotic damage for Cha Mod rounds",
 			//+ What(AbilityScores.fields.cha + ' Mod') + " rounds",
 			additional: ["1d6", "1d6", "1d6", "1d6", "1d8", "1d8", "1d8", "1d8", "1d8", "1d8", "1d10", "1d10", "1d10", "1d10", "1d10", "1d10", "1d12", "1d12", "1d12", "1d12"],
 			recovery: "long rest",
@@ -238,7 +238,7 @@ WeaponsList["dark_burst"] = {
 	ability: 6,
 	type: "Cantrip",
 	damage: ["3","6+1d6/SL", "necrotic"],
-	range: "15 ft",
+	range: "15 ft cone",
 	description: "All in area 3d6+1d6/SL; Max CHA Necrotic dmg; save halves",
 	abilitytodamage: false,
 	dc: true
