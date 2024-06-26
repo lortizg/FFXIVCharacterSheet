@@ -293,9 +293,9 @@ ClassList[className] = {
 			source: ["P", 72],
 			minlevel: 2,
 			description: tabbedLine + "Choose a Fighting Style using the \"Choose Feature\" button above",
-			choices: ["defense", "dueling", "great_weapon", "protection", "two_weapon"],
+			choices: ["Blind Fighting","Defense", "Dueling", "Great Weapon", "Interception", "Thrown Weapon","Two Weapon"],
 			choicesNotInMenu: false, //check!! todo
-			blind_fighting: {
+			"blind fighting": {
 				name: "Blind Fighting Style",
 				description: tabbedLine + "I have blindsight of 10ft. I can hit every creature that is not behind total cover.\n I can see an invisible creature unless it successfully hides from me",
 				senses: "Blindsight 10ft"
@@ -325,7 +325,7 @@ ClassList[className] = {
 					]
 				}
 			},
-			great_weapon: {
+			"great weapon": {
 				name: "Great Weapon Fighting Style",
 				description: tabbedLine + "Reroll 1 or 2 on damage if wielding two-handed/versatile melee weapon in both hands",
 				calcChanges: {
@@ -344,12 +344,12 @@ ClassList[className] = {
 				description: tabbedLine + "As a reaction, I can reduce the damage taken by a creature at 5ft by 1d10+Prof \nI need to be wielding a shield or a weapon to do this",
 				action: ["reaction", ""]
 			},
-			thrown_weapon: {
+			"thrown weapon": {
 				name: "Thrown Weapon Fighting Style",
 				description: tabbedLine + "I can draw a throwable weapon and attack with it as the same action. I deal +2 dmg with this weapon",
 				action: ["action", ""]
 			},
-			two_weapon: {
+			"two weapon": {
 				name: "Two-Weapon Fighting Style",
 				description: tabbedLine + "I can add my ability modifier to the damage of my off-hand attacks",
 				calcChanges: {
