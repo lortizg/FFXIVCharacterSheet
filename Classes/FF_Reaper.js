@@ -389,7 +389,7 @@ AddSubClass(className, subclasses[1].subclassName, {
 	regExpSearch: /^(?=.*grim)(?=.*keeper).*$/i,
 	subname: subclasses[1].subclassTitle,
 	fullname: subclasses[1].subclassTitle,
-	source: ["FF", 131],
+	source: ["FF", 105],
 	features: {
 		subclassfeature3: {
 			name: "Shared Presence",
@@ -405,8 +405,63 @@ AddSubClass(className, subclasses[1].subclassName, {
 			source: ["FF", 105],
 			minlevel: 7,
 			description: tabbedLine + "I can communicate telepathically with Void Avatar within 100ft"
-			+ tabbedLine + "I can see and hear through Void Avatar until the start of my next turn. I gain any Special Senses it has and I become blind and deaf from my own senses",
+				+ tabbedLine + "I can see and hear through Void Avatar until the start of my next turn. I gain any Special Senses it has and I become blind and deaf from my own senses",
 			action: ["action", "Death Perception"]
 		},
 	}
 });
+
+AddSubClass(className, subclasses[2].subclassName, {
+	regExpSearch: /^(?=.*doomsinger).*$/i,
+	subname: subclasses[2].subclassTitle,
+	fullname: subclasses[2].subclassTitle,
+	source: ["FF", 106],
+	features: {
+		subclassfeature3: {
+			name: "Soulsow",
+			source: ["FF", 106],
+			minlevel: 3,
+			description: tabbedLine + "I can cast a spell spending twice the souls of a spell slot lvl."
+				+ tabbedLine + "I gain these souls when a hostile crea. dies within 30ft. They vanish after long rest"
+				+ tabbedLine + "Range increases to 60ft if Void Avatar is invoked",
+			usages: [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6],
+			recovery: "long rest",
+			action: ["action", "Soul Slice"],
+			additional: "Souls",
+			limfeaname: "Souls"
+		},
+		"subclassfeature3.1": {
+			name: "Bonus Cantrip",
+			source: ["FF", 106],
+			minlevel: 3,
+			description: "",
+			spellcastingBonus: {
+				spells: ["toll the dead"],
+				spells: ["toll the dead"]
+			},
+		},
+		"subclassfeature3.2": function () {
+			var a = {
+				name: "Keeper of Shadowy Secrets",
+				source: ["FF", 106],
+				minlevel: 7,
+				description: tabbedLine + "I gain proficency on a skill or expertise if I'm already proficent on it.",
+				skillstxt: "Choose one from Arcana, History, Insight, Medicine, Religion. Gain proficency or expertise if already proficent.",
+				// additional: 1,
+				extraname: "Keeper of Shadowy Secrets",
+				choices: ["Arcana", "History", "Insight", "Medicine", "Religion"]
+			}
+			for (var i = 0; i < a.choices.length; i++) {
+				var attr = a.choices[i].toLowerCase();
+				a[attr] = {
+					name: a.choices[i] + " Knowledge",
+					description: "",
+					source: a.source,
+					skills: [[a.choices[i], "increment"]]
+				}
+			}
+			return a;
+		}(),
+	}
+});
+
