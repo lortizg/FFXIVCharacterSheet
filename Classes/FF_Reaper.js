@@ -384,3 +384,29 @@ AddSubClass(className, subclasses[0].subclassName, {
 		},
 	}
 });
+
+AddSubClass(className, subclasses[1].subclassName, {
+	regExpSearch: /^(?=.*grim)(?=.*keeper).*$/i,
+	subname: subclasses[1].subclassTitle,
+	fullname: subclasses[1].subclassTitle,
+	source: ["FF", 131],
+	features: {
+		subclassfeature3: {
+			name: "Shared Presence",
+			source: ["FF", 105],
+			minlevel: 3,
+			description: tabbedLine + "I can cast spells centered from Void Avatar instead of me",
+			usages: 3,
+			recovery: "long rest",
+			action: ["action", "Soul Slice"]
+		},
+		"subclassfeature3.1": {
+			name: "Death Perception",
+			source: ["FF", 105],
+			minlevel: 7,
+			description: tabbedLine + "I can communicate telepathically with Void Avatar within 100ft"
+			+ tabbedLine + "I can see and hear through Void Avatar until the start of my next turn. I gain any Special Senses it has and I become blind and deaf from my own senses",
+			action: ["action", "Death Perception"]
+		},
+	}
+});
