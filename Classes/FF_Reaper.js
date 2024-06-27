@@ -259,9 +259,10 @@ ClassList[className] = {
 			name: "Dark Alliance",
 			source: ["FF", 103],
 			minlevel: 1,
-			description: "",
+			description: "I can spend one of my attacks to make Void Avatar attack",
 			recovery: "long rest",
-			creaturesAdd: [["Void Avatar"]]
+			creaturesAdd: [["Void Avatar"]],
+			action: ["action", "Void Avatar attack"]
 		},
 		fighting_style: {
 			name: "Fighting Style",
@@ -355,26 +356,31 @@ ClassList[className] = {
 			source: ["FF", 104],
 			minlevel: 10,
 			description: tabbedLine + "After hiting a creature with a melee weapon attack I can spend a lvl1 spell slot to make it take a Charisma saving throw. Take 3d8 necrotic dmg and become frightened; half if saved. 1d8 more per higher spell slot",
-			action: ["bonus action", "Death Design"]
+			action: ["action", "Death Design"]
 		}
 	}
 };
 
 AddSubClass(className, subclasses[0].subclassName, {
-	regExpSearch: /^(?=.*sword)(?=.*dancer).*$/i,
+	regExpSearch: /^(?=.*lemure).*$/i,
 	subname: subclasses[0].subclassTitle,
 	fullname: subclasses[0].subclassTitle,
 	source: ["FF", 131],
 	features: {
-		subclassfeature2: {
-			name: "Corps-a-corps",
+		subclassfeature3: {
+			name: "Soul Slice",
 			source: ["FF", 113],
-			minlevel: 2,
-			description:
-				tabbedLine + "I can expend 1 Flair Point to move 30ft in a direction until I bump into a creature."
-				+ tabbedLine + "If I bump into a creature, I can make a weapon attack against it, dealing a bonus of 1d8 piercing dmg"
-				+ tabbedLine + "I don't make opportunity attacks from this action.",
-			action: ["bonus action", "Corps-a-corps"]
-		}
+			minlevel: 3,
+			description: tabbedLine + "After hiting a creature with a melee weapon attack I can spend a lvl1 spell slot to make it and every creature within 5ft take a Dexterity saving throw. Take 2d6 necrotic dmg; half if saved. 1d6 more per higher spell slot"
+				+ tabbedLine + "If Void Avatar is invoked, the range increases to 15ft cone from the target",
+			action: ["action", "Soul Slice"]
+		},
+		"subclassfeature3.1": {
+			name: "Wraith Walk",
+			source: ["FF", 113],
+			minlevel: 7,
+			description: tabbedLine + "I can spend a lvl1 spell slot to hover and increase my speed by 5ft; additional 5ft per higher spell slot",
+			action: ["action", "Soul Slice"]
+		},
 	}
 });
