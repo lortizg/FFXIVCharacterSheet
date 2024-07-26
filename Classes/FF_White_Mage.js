@@ -3,14 +3,6 @@
 */
 
 // --- global vars ---
-var ABILITIES_ABBR = {
-	STRENGTH: "Str",
-	DEXTERITY: "Dex",
-	CONSTITUTION: "Con",
-	INTELLIGENCE: "Int",
-	WISDOM: "Wis",
-	CHARISMA: "Cha",
-}
 var bulletedLine = "\n \u2022 ";
 var tabbedLine = "\n   ";
 
@@ -37,7 +29,7 @@ var classWeaponProfs = {
 RequiredSheetVersion("13.0.6");
 
 // --- Source ---
-SourceList["FF:A"] = {
+SourceList["FF:WM"] = {
 	name: "FFXIV x D&D Compendium: " + classNameTitle,
 	abbreviation: "FF:WM",
 	group: "Final Fantasy",
@@ -54,7 +46,7 @@ ClassList[className] = {
 	prereqs: "Wisdom 13",
 	die: 6,
 	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-	saves: [ABILITIES_ABBR.WISDOM, ABILITIES_ABBR.CHARISMA],
+	saves: [AbilityScores.fields.wis, AbilityScores.fields.cha],
 	skills: [
 		"\n\n" + className + ": Choose two from " + skillsToSelect + ".",
 		"\n\n" + className + ""
@@ -80,8 +72,8 @@ ClassList[className] = {
 		spells: "list",
 		prepared: true,
 	},
-	spellcastingList : { 
-		spells : [
+	spellcastingList: {
+		spells: [
 			"create bonfire",
 			"druidcraft",
 			"friends",
@@ -99,7 +91,7 @@ ClassList[className] = {
 			"word of radiance",
 			//"1st level",
 			"bane",
-			"ceremony", 
+			"ceremony",
 			"command",
 			"create or destroy water",
 			"cure wounds",
@@ -275,7 +267,8 @@ ClassList[className] = {
 			name: "Reach of the Unseen",
 			source: ["FF", 130],
 			minlevel: 1,
-			description: tabbedLine + "I can spend 1 charge of Confession to convert a touch spell into a ranged spell (30ft)"
+			description: tabbedLine + "I can spend 1 charge of Confession to convert a touch spell into a ranged spell (30ft)",
+			action: ["action", "Reach of the Unseen"]
 		},
 
 		afflatus_solace: {
@@ -304,7 +297,8 @@ AddSubClass(className, subclass1Name, {
 				tabbedLine + "I can expend Confession charges to bless a weapon you can see within 30ft during WisModifier rounds"
 				+ tabbedLine + "[1 Charge] - The damage type of the weapon changes to cold, radiant or thunder."
 				+ tabbedLine + "[2 Charges] - The weapon gains a +1 bonus on attack rolls."
-				+ tabbedLine + "[3 Charges] - The weapon's damage rolls deal bonus damage equal to your proficiency bonus."
+				+ tabbedLine + "[3 Charges] - The weapon's damage rolls deal bonus damage equal to your proficiency bonus.",
+			action: ["action", "Elemental Blessing"]
 		}
 	}
 });
