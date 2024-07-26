@@ -304,7 +304,7 @@ AddSubClass(className, subclass1Name, {
 			source: ["FF", 131],
 			minlevel: 2,
 			description:
-				tabbedLine + "I can expend Confession charges to bless a weapon you can see within 30ft during WisModifier rounds"
+				tabbedLine + "I can expend Confession charges to bless a weapon you can see within 30ft during WIS rounds"
 				+ tabbedLine + "[1 Charge] - The damage type of the weapon changes to cold, radiant or thunder."
 				+ tabbedLine + "[2 Charges] - The weapon gains a +1 bonus on attack rolls."
 				+ tabbedLine + "[3 Charges] - The weapon's damage rolls deal bonus damage equal to your proficiency bonus.",
@@ -342,7 +342,7 @@ AddSubClass(className, subclass1Name, {
 			minlevel: 14,
 			description:
 				tabbedLine + "I can expend Confession charges to cast a spell which level is half the number of expended charge (rounded up).",
-			action: ["bonus action", "Elemental Armour"]
+			action: ["bonus action", "Aetherial Conjuration"]
 		},
 	}
 });
