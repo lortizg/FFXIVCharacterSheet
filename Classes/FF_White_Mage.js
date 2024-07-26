@@ -324,7 +324,6 @@ AddSubClass(className, subclass1Name, {
 			description:
 				tabbedLine + "I can gain a mental map of the area in 2mile radius around me."
 				+ tabbedLine + "I have to meditate during 15 mins for this.",
-			action: ["action", "Elemental Blessing"],
 			vision : ["Darkvision, magical and non magical", 120],
 			recovery: "long rest"
 		},
