@@ -29,9 +29,9 @@ var classWeaponProfs = {
 RequiredSheetVersion("13.0.6");
 
 // --- Source ---
-SourceList["FF:WM"] = {
+SourceList["FF:WHM"] = {
 	name: "FFXIV x D&D Compendium: " + classNameTitle,
-	abbreviation: "FF:WM",
+	abbreviation: "FF:WHM",
 	group: "Final Fantasy",
 	url: "https://www.gmbinder.com/share/-LsDqsNbupzeLhkTIcPv",
 	date: "2020/11/25"
@@ -279,6 +279,16 @@ ClassList[className] = {
 				tabbedLine + "I can spend x Confession charges to heal xd4 + my profficency. I cannot heal creatures with 0 hit points"
 				+ tabbedLine + "I CANNOT use Prayer until my next turn.",
 			action: ["action", "Afflatus Solace"]
+		},
+
+		conservation_of_life: {
+			name: "Conservation of Life",
+			source: ["FF", 145],
+			minlevel: 18,
+			description:
+				tabbedLine + "When I fall to 0 HP, all allies (excluding me) within 30ft are healed 2d8 + WIS HP"
+				+ tabbedLine + "This is not affected by Touch of the Padjal.",
+			recovery: "long rest"
 		}
 	}
 };
@@ -299,6 +309,40 @@ AddSubClass(className, subclass1Name, {
 				+ tabbedLine + "[2 Charges] - The weapon gains a +1 bonus on attack rolls."
 				+ tabbedLine + "[3 Charges] - The weapon's damage rolls deal bonus damage equal to your proficiency bonus.",
 			action: ["action", "Elemental Blessing"]
-		}
+		},
+		"subclassfeature2.1" : {
+			name : "Extended Spells",
+			source : ["FF", 131],
+			minlevel : 2,
+			description : tabbedLine + "My link to the elements gives me with the ability to cast certain spells",
+			spellcastingExtra : ["earth tremor", "thunderwave", "earthbind", "maximilian's earthen grasp", "erupting earth", "melf's minute meteors", "stoneskin", "watery sphere", "conjure elemental", "control wind"]
+		},
+		subclassfeature6: {
+			name: "Eyes of the Elementals",
+			source: ["FF", 147],
+			minlevel: 6,
+			description:
+				tabbedLine + "I can gain a mental map of the area in 2mile radius around me."
+				+ tabbedLine + "I have to meditate during 15 mins for this.",
+			action: ["action", "Elemental Blessing"],
+			vision : ["Darkvision, magical and non magical", 120],
+			recovery: "long rest"
+		},
+		subclassfeature10: {
+			name: "Elemental Armour",
+			source: ["FF", 147],
+			minlevel: 10,
+			description:
+				tabbedLine + "I can expend 1 Confession charge to grant a creature resistance to cold, radiant OR thunder during WIS rounds.",
+			action: ["action", "Elemental Armour"]
+		},
+		subclassfeature14: {
+			name: "Aetherial Conjuration",
+			source: ["FF", 147],
+			minlevel: 14,
+			description:
+				tabbedLine + "I can expend Confession charges to cast a spell which level is half the number of expended charge (rounded up).",
+			action: ["bonus action", "Elemental Armour"]
+		},
 	}
 });
