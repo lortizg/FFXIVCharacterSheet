@@ -240,24 +240,25 @@ ClassList[className] = {
 			description: tabbedLine + "[1 Draconic Blood point] I can my Wis mod to my attack rolls until the end of my next turn.",
 			action: ["bonus action", "True Thrust"]
 		},
-		// heavy_thrust: {
-		// 	name: "Heavy Thrust",
-		// 	source: ["FF", 65],
-		// 	minlevel: 7,
-		// 	description: tabbedLine + "[1 Draconic Blood point] After hitting a melee weapon attack, I recover HP equal to half inflicted dmg (rounded up)."
-		// }
+		heavy_thrust: {
+			name: "Heavy Thrust",
+			source: ["FF", 66],
+			minlevel: 7,
+			description: tabbedLine + "[1 Draconic Blood point] I can my Wis mod to my weapon dmg rolls until the end of my next turn.",
+			action: ["bonus action", "Heavy Thrust"]
+		},
 		life_of_the_dragon: {
 			name: "Life of the Dragon",
 			source: ["FF", 66],
 			minlevel: 9,
-			description: 
+			description:
 				tabbedLine + "I can now permanently jump 30ft and 15ft high" +
 				tabbedLine + "While on Dragoon Trance it turns into 90ft and 60ft high and I can use Dash as bonus action."
-				//TODO: change abilities of jump on main sheet
+			//TODO: change abilities of jump on main sheet
 		},
 		high_jump: {
 			name: "High Jump",
-			source: ["FF", 65],
+			source: ["FF", 66],
 			minlevel: 10,
 			description: tabbedLine + "If I used Stall in my last turn, if I jump 30ft I can make a melee attack as an action. The creature must succeed a Dex saving throw (disadv.) or be knocked prone and take dmg 4 x Total Damage of the weapon I am wielding; half dmg if succeed and is not knocked.",
 			weaponOptions: {
@@ -309,8 +310,8 @@ ClassList[className] = {
 			name: "Battle Litany",
 			source: ["FF", 66],
 			minlevel: 18,
-			description: 
-				tabbedLine + "[Dragoon's Trance] Me and my allies within 10ft can land a crit on melee weapon attacks on a 19 or 20 roll for STR mod rounds."+
+			description:
+				tabbedLine + "[Dragoon's Trance] Me and my allies within 10ft can land a crit on melee weapon attacks on a 19 or 20 roll for STR mod rounds." +
 				tabbedLine + "This can be activated once per Dragoon's Trance. It doesn't overwrite other crit range increases."
 		},
 		dragon_blooded: {
