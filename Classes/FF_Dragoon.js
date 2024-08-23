@@ -41,12 +41,12 @@ var subclasses = [
 		subclassTitle: 'Slayer'
 	},
 	{
-		subclassName: 'spellslinger',
-		subclassTitle: 'Spell Slinger'
+		subclassName: 'dragonheart',
+		subclassTitle: 'Dragon Heart'
 	},
 	{
-		subclassName: 'battlerose',
-		subclassTitle: 'Battle Rose'
+		subclassName: 'valkyrie',
+		subclassTitle: 'Valkyrie'
 	}
 ]
 
@@ -373,6 +373,67 @@ AddSubClass(className, subclasses[0].subclassName, {
 				isNotWeapon: true,
 				selectNow: true
 			},
+		}
+	}
+});
+
+AddSubClass(className, subclasses[1].subclassName, {
+	regExpSearch: /^(?=.*dragon)(?=.*heart).*$/i,
+	subname: subclasses[1].subclassTitle,
+	fullname: subclasses[1].subclassTitle,
+	source: ["FF", 67],
+	features: {
+		subclassfeature3: {
+			name: "Breath of the Dragon",
+			source: ["FF", 67],
+			minlevel: 3,
+			description:
+				tabbedLine + "[Dragoon Trance - 1 Draconic Blood Point] I can cast Dragon's Breath.",
+			spellcastingBonus: [{
+				name: "Breath of the Dragon",
+				spells: ["dragon's breath"],
+				selection: ["dragon's breath"],
+				atwill: true
+			}],
+			spellChanges: {
+				"dragon's breath": {
+					changes: "I can cast this spell only at lvl2. At lvl9, at lvl3; at lvl17, at lvl4"
+				},
+			}
+
+		},
+		subclassfeature7: {
+			name: "Dragon Sense",
+			source: ["FF", 67],
+			minlevel: 3,
+			description:
+				tabbedLine + "I can make a perception check as bonus action",
+			vision: ["30ft blindsight. 60ft darksight"],
+			action: ["bonus action", ""]
+		},
+		subclassfeature11: {
+			name: "Scales of the Dragon",
+			source: ["FF", 67],
+			minlevel: 11,
+			description:
+				tabbedLine + "[Dragoon Trance - 1 Draconic Blood Point] When I take damage, I gain resistance to slashing, buldeodging, piercing and fire dmg until hte end of my next turn.",
+			action: ["reaction", ""],
+			spellChanges: {
+				"dragon's breath": {
+					changes: "Concentration cannot be broken."
+				},
+			}
+		},
+		subclassfeature15: {
+			name: "Raging Dragon",
+			source: ["FF", 67],
+			minlevel: 15,
+			description: "",
+			spellChanges: {
+				"dragon's breath": {
+					changes: "I cast the effect as a bonus action instead of an action."
+				},
+			}
 		}
 	}
 });
