@@ -37,8 +37,8 @@ var classWeaponProfs = {
 
 var subclasses = [
 	{
-		subclassName: 'sworddancer',
-		subclassTitle: 'Sword Dancer'
+		subclassName: 'slayer',
+		subclassTitle: 'Slayer'
 	},
 	{
 		subclassName: 'spellslinger',
@@ -133,7 +133,7 @@ ClassList[className] = {
 				list: "melee",
 				ability: 2,
 				type: "Natural",
-				damage: [0, 0, ""],
+				damage: ["Weapon (full)", "", ""],
 				range: "melee",
 				description: "Dex save, success - half dmg, not knocked; I land in an unoccupied space next to the creature",
 				abilitytodamage: false,
@@ -206,7 +206,7 @@ ClassList[className] = {
 				description: tabbedLine + "As a reaction, I can give disadv. on an attack made vs. someone within 5 ft of me\nI need to be wielding a shield and be able to see the attacker to do this",
 				action: ["reaction", ""]
 			},
-			"Two-Weapon Fighting": {
+			"two-weapon fighting": {
 				name: "Two-Weapon Fighting Style",
 				description: tabbedLine + "I can add my ability modifier to the damage of my off-hand attacks",
 				calcChanges: {
@@ -268,7 +268,7 @@ ClassList[className] = {
 				list: "melee",
 				ability: 2,
 				type: "Natural",
-				damage: [0, 0, ""],
+				damage: ["4xWeapon (full)", "", ""],
 				range: "melee",
 				description: "Dex save (disadv.), success - half dmg, not knocked; I land in an unoccupied space next to the creature",
 				abilitytodamage: false,
@@ -324,52 +324,55 @@ ClassList[className] = {
 };
 
 AddSubClass(className, subclasses[0].subclassName, {
-	regExpSearch: /^(?=.*sword)(?=.*dancer).*$/i,
+	regExpSearch: /^(?=.*slayer).*$/i,
 	subname: subclasses[0].subclassTitle,
 	fullname: subclasses[0].subclassTitle,
-	source: ["FF", 131],
+	source: ["FF", 66],
 	features: {
-		subclassfeature2: {
-			name: "Corps-a-corps",
-			source: ["FF", 113],
-			minlevel: 2,
+		subclassfeature3: {
+			name: "Spineshatter Dive",
+			source: ["FF", 66],
+			minlevel: 3,
 			description:
-				tabbedLine + "I can expend 1 Flair Point to move 30ft in a direction until I bump into a creature."
-				+ tabbedLine + "If I bump into a creature, I can make a weapon attack against it, dealing a bonus of 1d8 piercing dmg"
-				+ tabbedLine + "I don't make opportunity attacks from this action.",
-			action: ["bonus action", "Corps-a-corps"]
+				tabbedLine + "[1 Draconic Blood point] If a crea. misses the saving throw against my jump, it becomes stunned until the end of my next turn.", // TODO change jump ability
+		},
+		subclassfeature7: {
+			name: "Familiar Contempt",
+			source: ["FF", 66],
+			minlevel: 3,
+			description:
+				tabbedLine + "I have advantage on History, Nature and Perception checks that involves tracking or gathering info about creatures."
+		},
+		subclassfeature11: {
+			name: "Elusive Jump",
+			source: ["FF", 66],
+			minlevel: 11,
+			description:
+				tabbedLine + "[Dragoon Trance] I can impose disadv. on attacks roll towards me and make a standing leap up to 10ft height to an unoccupied location up to 15ft. I do not provoke opportunity attacks from this.",
+			action: ["reaction", ""]
+		},
+		subclassfeature15: {
+			name: "Geirskogul",
+			source: ["FF", 66],
+			minlevel: 15,
+			description: "",
+			// tabbedLine + "[# Draconic Blood points] All crea. in 100ft long 5ft wide must make a Dex save or take #d8 force dmg - half on success.",
+			// action: ["action", ""],
+			weaponOptions: {
+				regExpSearch: /^(?=.*geirskogul).*$/i,
+				name: "Geirskogul",
+				source: [["FF", 66]],
+				list: "ranged",
+				ability: 2,
+				type: "Natural",
+				damage: ["#", 8, "force"],
+				range: "100ft long, 5ft wide",
+				description: "Dex save, success - half dmg. I spend # Draconic Blood Points for this attack",
+				abilitytodamage: true,
+				dc: true,
+				isNotWeapon: true,
+				selectNow: true
+			},
 		}
 	}
 });
-
-// SpellsList["jolt"] = {
-// 	name: "Jolt",
-// 	regExpSearch: /^(?=.*jolt).*$/i,
-// 	source: ["FF", 144],
-// 	description: "I can make a ranged spell attack. On hit it takes 1d8 force damage. 2 shards lvl5; 3 lvl11; 4 lvl17",
-// 	descriptionShorter: "Spell Atk; On hit take 1d8 force dmg",
-// 	descriptionFull: "A shard of crystallized aether streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d8 force damage." +
-// 		tabbedLine + "The spell creates more than one shard when you reach higher levels: two shards at 5th level, three shards at 11th level, and four shards at 17th level. You can direct the shards at the same target or at different ones. Make a separate attack roll for each shard.",
-// 	classes: [className],
-// 	level: 0,
-// 	school: "Evoc",
-// 	time: "1 a",
-// 	range: "60 ft",
-// 	rangeMetric: "18m",
-// 	components: "V,S",
-// 	duration: "Instantaneous"
-// };
-
-// var JoltDamage =
-// WeaponsList["jump"] = {
-// 	regExpSearch: /^(?=.*jump).*$/i,
-// 	name: "Jump",
-// 	source: [["FF", 65]],
-// 	list: "spell",
-// 	ability: 6,
-// 	type: "Cantrip",
-// 	damage: ["C \xD7" + 1, 8, "force"],
-// 	range: "60 ft",
-// 	description: "Each d8 is a separate beam requiring separate rolls",
-// 	abilitytodamage: false
-// };
