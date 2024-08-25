@@ -243,7 +243,7 @@ ClassList[className] = {
 	features: {
 		spellcasting: {
 			name: "Spellcasting",
-			source: [["FF", 112], ["FF", 300]],
+			source: [["FF", 109], ["FF", 300]],
 			minlevel: 1,
 			description:
 				tabbedLine + "I can cast sorcerer cantrips/spells that I know, using Charisma as my spellcasting ability" +
@@ -255,7 +255,7 @@ ClassList[className] = {
 
 		flair_points: {
 			name: "Flair Points",
-			source: ["FF", 112],
+			source: ["FF", 109],
 			minlevel: 1,
 			description: "",
 			usages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -266,10 +266,25 @@ ClassList[className] = {
 
 		dual_cast: {
 			name: "Dual Cast",
-			source: ["FF", 112],
+			source: ["FF", 109],
 			minlevel: 1,
 			description: tabbedLine + "I can spend 1 Flair Point to change the casting time from action to bonus for a spell lvl 1-4",
-			action: ["bonus action", "Dual Cast"]
+			action: ["bonus action", ""]
+		},
+		battle_flourish: {
+			name: "Battle Flourish",
+			source: ["FF", 109],
+			minlevel: 18,
+			description: tabbedLine + "When I roll initiative, if I have 0 Flair Points, I recover 1d4."
+		},
+		acceleration: {
+			name: "Acceleration",
+			source: ["FF", 109],
+			minlevel: 20,
+			description: tabbedLine + "When using Dual Cast, I can cast two spells instead of a spell and a cantrip.",
+			action: ["bonus action", ""],
+			usages: 1,
+			recovery: "long rest"
 		},
 	}
 };
@@ -282,14 +297,50 @@ AddSubClass(className, subclasses[0].subclassName, {
 	features: {
 		subclassfeature2: {
 			name: "Corps-a-corps",
-			source: ["FF", 113],
+			source: ["FF", 109],
 			minlevel: 2,
 			description:
-				tabbedLine + "I can expend 1 Flair Point to move 30ft in a direction until I bump into a creature."
-				+ tabbedLine + "If I bump into a creature, I can make a weapon attack against it, dealing a bonus of 1d8 piercing dmg"
+				tabbedLine + "[1 Flair Point] I move 30ft in a direction until I bump into a creature."
+				+ tabbedLine + "If I bump into a creature, I can make a weapon attack against it, dealing a bonus of 1d8 piercing dmg."
 				+ tabbedLine + "I don't make opportunity attacks from this action.",
 			action: ["bonus action", "Corps-a-corps"]
-		}
+		},
+		subclassfeature6: {
+			name: "Heroic Charm",
+			source: ["FF", 110],
+			minlevel: 6,
+			description: tabbedLine + "I can spend 1 Flair Point to reroll a cha. based ability check.",
+			skillstxt: "Choose any charisma skill",
+		},
+		subclassfeature10: {
+			name: "Displacement",
+			source: ["FF", 110],
+			minlevel: 10,
+			description:
+				tabbedLine + "[1 Flair Point] After attacking, I leap backwards up to a 30ft line. I can jump over medium or smaller crea. this way, otherwise I bump into it."+
+				tabbedLine + "I can make a spell attack to deal 2d8+cha",
+			action: ["action", ""]
+		},
+		subclassfeature14: {
+			name: "Enchanted Blade",
+			source: ["FF", 110],
+			minlevel: 14,
+			description:
+				tabbedLine + "After attuning to an one-handed weapon (1hr), I am able to summon it.",
+			action: ["action", "Invoke Blade"],
+			weaponOptions: {
+				regExpSearch: /^(?=.*enchanted)(?=.*blade).*$/i,
+				name: "Enchanted Blade",
+				source: [["FF", 65]],
+				ability: 2,
+				type: "Natural",
+				damage: ["(1FP) 2d8 extra", "", "force"],
+				range: "",
+				description: "Finesse, one-handed",
+				abilitytodamage: false,
+				selectNow: true
+			},
+		},
 	}
 });
 
