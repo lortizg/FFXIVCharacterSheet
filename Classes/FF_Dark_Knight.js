@@ -191,6 +191,49 @@ ClassList[className] = {
 				+ tabbedLine + "If I roll a nat 19 or 20 against the cursed crea, it is a crit."
 				+ tabbedLine + "If the crea dies, I regain Dark Knight lvl + cha hit points and 1 Well of Darkness point",
 			action: ["bonus action", "Curse of the Abyss"],
+		},
+		abyssal_communion: {
+			name: "Abyssal Communion",
+			source: ["FF", 60],
+			minlevel: 13,
+			description: "",
+			action: ["action", ""],
+			spellcastingBonus: [{
+				name: "Abyssal Communion",
+				spells: ["rary's telepathic bond"],
+				atwill: true,
+				spellChanges: {
+					"rary's telepathic bond": {
+						changes: "I can cast this spell with 6 Darkness points."
+					}
+				}
+			}]
+		},
+		quietus: {
+			name: "Quietus",
+			source: ["FF", 61],
+			minlevel: 14,
+			description: tabbedLine + "[2 Darkness points] I can make a melee weapon attack to all creatures in 10ft. I can spend 1 Hit Die to add the roll as necrotic dmg.",
+			action: ["action", ""]
+		},
+		dark_mind: {
+			name: "Dark Mind",
+			source: ["FF", 61],
+			minlevel: 15,
+			description: "",
+			saves: ["Wis"]
+		},
+		stalwart_soul: {
+			name: "Stalwart Soul",
+			source: ["FF", 61],
+			minlevel: 18,
+			description: tabbedLine + "At the start of my turns, if I have less than half my HP (not 0), I regain 5+Con HP."
+		},
+		living_dead: {
+			name: "Quietus",
+			source: ["FF", 61],
+			minlevel: 20,
+			description: tabbedLine + "If I drop to 0 HP but not killed, I can spend 1 Hit Die to roll it and recover #+Con HP."
 		}
 	}
 };
@@ -237,7 +280,7 @@ WeaponsList["dark_burst"] = {
 	list: "spell",
 	ability: 6,
 	type: "Cantrip",
-	damage: ["3","6+1d6/SL", "necrotic"],
+	damage: ["3", "6+1d6/SL", "necrotic"],
 	range: "15 ft cone",
 	description: "All in area 3d6+1d6/SL; Max CHA Necrotic dmg; save halves",
 	abilitytodamage: false,
