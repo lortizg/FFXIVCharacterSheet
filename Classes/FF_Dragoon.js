@@ -220,7 +220,7 @@ ClassList[className] = {
 			name: "Lancet",
 			source: ["FF", 65],
 			minlevel: 2,
-			description: tabbedLine + "[1 Draconic Blood point] After hitting a melee weapon attack, I recover HP equal to half inflicted dmg (rounded up)."
+			description: tabbedLine + "[1 Draconic Blood Charge] After hitting a melee weapon attack, I recover HP equal to half inflicted dmg (rounded up)."
 		},
 		stall: {
 			name: "Stall",
@@ -234,14 +234,14 @@ ClassList[className] = {
 			name: "True Thrust",
 			source: ["FF", 66],
 			minlevel: 6,
-			description: tabbedLine + "[1 Draconic Blood point] I can my Wis mod to my attack rolls until the end of my next turn.",
+			description: tabbedLine + "[1 Draconic Blood Charge] I can my Wis mod to my attack rolls until the end of my next turn.",
 			action: ["bonus action", "True Thrust"]
 		},
 		heavy_thrust: {
 			name: "Heavy Thrust",
 			source: ["FF", 66],
 			minlevel: 7,
-			description: tabbedLine + "[1 Draconic Blood point] I can my Wis mod to my weapon dmg rolls until the end of my next turn.",
+			description: tabbedLine + "[1 Draconic Blood Charge] I can my Wis mod to my weapon dmg rolls until the end of my next turn.",
 			action: ["bonus action", "Heavy Thrust"]
 		},
 		life_of_the_dragon: {
@@ -292,7 +292,7 @@ ClassList[className] = {
 			name: "Heavy Impact",
 			source: ["FF", 66],
 			minlevel: 14,
-			description: tabbedLine + "[1 Draconic Blood point] I can make a jump attack affect all crea. within 10ft of the attacked creature."
+			description: tabbedLine + "[1 Draconic Blood Charge] I can make a jump attack affect all crea. within 10ft of the attacked creature."
 		},
 		invigorate: {
 			name: "Invigorate",
@@ -331,12 +331,12 @@ AddSubClass(className, subclasses[0].subclassName, {
 			source: ["FF", 66],
 			minlevel: 3,
 			description:
-				tabbedLine + "[1 Draconic Blood point] If a crea. misses the saving throw against my jump, it becomes stunned until the end of my next turn.", // TODO change jump ability
+				tabbedLine + "[1 Draconic Blood Charge] If a crea. misses the saving throw against my jump, it becomes stunned until the end of my next turn.", // TODO change jump ability
 		},
 		subclassfeature7: {
 			name: "Familiar Contempt",
 			source: ["FF", 66],
-			minlevel: 3,
+			minlevel: 7,
 			description:
 				tabbedLine + "I have advantage on History, Nature and Perception checks that involves tracking or gathering info about creatures."
 		},
@@ -353,7 +353,7 @@ AddSubClass(className, subclasses[0].subclassName, {
 			source: ["FF", 66],
 			minlevel: 15,
 			description: "",
-			// tabbedLine + "[# Draconic Blood points] All crea. in 100ft long 5ft wide must make a Dex save or take #d8 force dmg - half on success.",
+			// tabbedLine + "[# Draconic Blood Charges] All crea. in 100ft long 5ft wide must make a Dex save or take #d8 force dmg - half on success.",
 			// action: ["action", ""],
 			weaponOptions: {
 				regExpSearch: /^(?=.*geirskogul).*$/i,
@@ -364,7 +364,7 @@ AddSubClass(className, subclasses[0].subclassName, {
 				type: "Natural",
 				damage: ["#", 8, "force"],
 				range: "100ft long, 5ft wide",
-				description: "Dex save, success - half dmg. I spend # Draconic Blood Points for this attack",
+				description: "Dex save, success - half dmg. I spend # Draconic Blood Charges for this attack",
 				abilitytodamage: true,
 				dc: true,
 				isNotWeapon: true,
@@ -385,7 +385,7 @@ AddSubClass(className, subclasses[1].subclassName, {
 			source: ["FF", 67],
 			minlevel: 3,
 			description:
-				tabbedLine + "[Dragoon Trance - 1 Draconic Blood Point] I can cast Dragon's Breath.",
+				tabbedLine + "[Dragoon Trance - 1 Draconic Blood Charge] I can cast Dragon's Breath.",
 			spellcastingBonus: [{
 				name: "Breath of the Dragon",
 				spells: ["dragon's breath"],
@@ -402,9 +402,9 @@ AddSubClass(className, subclasses[1].subclassName, {
 		subclassfeature7: {
 			name: "Dragon Sense",
 			source: ["FF", 67],
-			minlevel: 3,
+			minlevel: 7,
 			description:
-				tabbedLine + "I can make a perception check as bonus action",
+				tabbedLine + "I can make a perception check as bonus action.",
 			vision: ["30ft blindsight. 60ft darksight"],
 			action: ["bonus action", ""]
 		},
@@ -413,7 +413,7 @@ AddSubClass(className, subclasses[1].subclassName, {
 			source: ["FF", 67],
 			minlevel: 11,
 			description:
-				tabbedLine + "[Dragoon Trance - 1 Draconic Blood Point] When I take damage, I gain resistance to slashing, buldeodging, piercing and fire dmg until hte end of my next turn.",
+				tabbedLine + "[Dragoon Trance - 1 Draconic Blood Charge] When I take damage, I gain resistance to slashing, buldeodging, piercing and fire dmg until hte end of my next turn.",
 			action: ["reaction", ""],
 			spellChanges: {
 				"dragon's breath": {
@@ -431,6 +431,42 @@ AddSubClass(className, subclasses[1].subclassName, {
 					changes: "I cast the effect as a bonus action instead of an action."
 				},
 			}
+		}
+	}
+});
+
+AddSubClass(className, subclasses[2].subclassName, {
+	regExpSearch: /^(?=.*valkyrie).*$/i,
+	subname: subclasses[2].subclassTitle,
+	fullname: subclasses[2].subclassTitle,
+	source: ["FF", 67],
+	features: {
+		subclassfeature3: {
+			name: "Mirage Dive",
+			source: ["FF", 67],
+			minlevel: 3,
+			description:
+				tabbedLine + "When I make a Jump attack, I make an aetheric image that performs the same attack, it deals half dmg.",
+			action: ["bonus action", ""]
+		},
+		subclassfeature7: {
+			name: "Dragon Sense",
+			source: ["FF", 67],
+			minlevel: 7,
+			description:
+				tabbedLine + "[Dragon Trance] I gain flying speed equal to my movement speed. It counts for my Jump features."
+		},
+		subclassfeature11: {
+			name: "Barrel roll",
+			source: ["FF", 67],
+			minlevel: 11,
+			description: tabbedLine + "I don't provoke opportunity attacks when I fly."
+		},
+		subclassfeature15: {
+			name: "Stardiver",
+			source: ["FF", 67],
+			minlevel: 15,
+			description: tabbedLine + "I can use High Jump spending 1 Draconic Blood Charge instead of using stall."
 		}
 	}
 });
