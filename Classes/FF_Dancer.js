@@ -41,12 +41,12 @@ var subclasses = [
 		subclassTitle: 'Paragon'
 	},
 	{
-		subclassName: 'exoticwonder',
-		subclassTitle: 'Exoctic Wonder'
-	},
-	{
 		subclassName: 'peacebringer',
 		subclassTitle: 'Peace Bringer'
+	},
+	{
+		subclassName: 'exoticwonder',
+		subclassTitle: 'Exotic Wonder'
 	}
 ]
 
@@ -254,7 +254,7 @@ ClassList[className] = {
 			calcChanges: {
 				atkAdd: [
 					function (fields, v) {
-						if (classes.known.dancer && classes.known.dancer.level && !v.isSpell && !v.isDC && (v.isRangedWeapon || (/\bfinesse\b/i).test(fields.Description))) {
+						if (classes.known.dancer && classes.known.dancer.level && !v.isSpell && !v.isDC && (v.isRangedWeapon && (/\bfinesse\b/i).test(fields.Description))) {
 							v.sneakAtk = Math.ceil(classes.known.dancer.level / 2);
 							fields.Description += (fields.Description ? '; ' : '') + 'Flourish ' + v.sneakAtk + 'd6';
 						};
@@ -311,73 +311,111 @@ ClassList[className] = {
 			source: ["FF", 56],
 			minlevel: 10,
 			description:
-				tabbedLine + "[1 Dazzling Dance point] When using Help action, I can add my Cha mod to their roll." +
-				tabbedLine + "[1 Dazzling Dance point] I can use Help as a bonus action",
+				tabbedLine + "[1 Dazzling Dance charge] When using Help action, I can add my Cha mod to their roll." +
+				tabbedLine + "[1 Dazzling Dance charge] I can use Help as a bonus action",
 			action: ["bonus action", ""]
 		}
 	}
 };
 
-// AddSubClass(className, subclasses[1].subclassName, {
-// 	regExpSearch: /^(?=.*dragon)(?=.*heart).*$/i,
-// 	subname: subclasses[1].subclassTitle,
-// 	fullname: subclasses[1].subclassTitle,
-// 	source: ["FF", 67],
-// 	features: {
-// 		subclassfeature3: {
-// 			name: "Breath of the Dragon",
-// 			source: ["FF", 67],
-// 			minlevel: 3,
-// 			description:
-// 				tabbedLine + "[Dancer Trance - 1 Draconic Blood Point] I can cast Dragon's Breath.",
-// 			spellcastingBonus: [{
-// 				name: "Breath of the Dragon",
-// 				spells: ["dragon's breath"],
-// 				selection: ["dragon's breath"],
-// 				atwill: true
-// 			}],
-// 			spellChanges: {
-// 				"dragon's breath": {
-// 					changes: "I can cast this spell only at lvl2. At lvl9, at lvl3; at lvl17, at lvl4"
-// 				},
-// 			}
-
-// 		},
-// 		subclassfeature7: {
-// 			name: "Dragon Sense",
-// 			source: ["FF", 67],
-// 			minlevel: 3,
-// 			description:
-// 				tabbedLine + "I can make a perception check as bonus action",
-// 			vision: ["30ft blindsight. 60ft darksight"],
-// 			action: ["bonus action", ""]
-// 		},
-// 		subclassfeature11: {
-// 			name: "Scales of the Dragon",
-// 			source: ["FF", 67],
-// 			minlevel: 11,
-// 			description:
-// 				tabbedLine + "[Dancer Trance - 1 Draconic Blood Point] When I take damage, I gain resistance to slashing, buldeodging, piercing and fire dmg until hte end of my next turn.",
-// 			action: ["reaction", ""],
-// 			spellChanges: {
-// 				"dragon's breath": {
-// 					changes: "Concentration cannot be broken."
-// 				},
-// 			}
-// 		},
-// 		subclassfeature15: {
-// 			name: "Raging Dragon",
-// 			source: ["FF", 67],
-// 			minlevel: 15,
-// 			description: "",
-// 			spellChanges: {
-// 				"dragon's breath": {
-// 					changes: "I cast the effect as a bonus action instead of an action."
-// 				},
-// 			}
-// 		}
-// 	}
-// });
+AddSubClass(className, subclasses[2].subclassName, {
+	regExpSearch: /^(?=.*exotic)(?=.*wonder).*$/i,
+	subname: subclasses[2].subclassTitle,
+	fullname: subclasses[2].subclassTitle,
+	source: ["FF", 67],
+	features: {
+		subclassfeature3: {
+			name: "Flourishing Swing",
+			source: ["FF", 57],
+			minlevel: 3,
+			description: tabbedLine + "My melee finesse weapon attacks also activate Flourish",
+			calcChanges: {
+				atkAdd: [
+					function (fields, v) {
+						if (classes.known.dancer && classes.known.dancer.level && !v.isSpell && !v.isDC && (v.isMeleeWeapon && (/\bfinesse\b/i).test(fields.Description))) {
+							v.sneakAtk = Math.ceil(classes.known.dancer.level / 2);
+							fields.Description += (fields.Description ? '; ' : '') + 'Flourish ' + v.sneakAtk + 'd6';
+						};
+					},
+					"Once per turn, when I attack with a melee, finesse weapon while I have advantage or an conscious ally is within 5 ft of the target, I can add my sneak attack damage to the attack.",
+					700
+				]
+			}
+		},
+		"subclassfeature3.1": {
+			name: "Fighting Style",
+			source: ["FF", 57],
+			minlevel: 3,
+			description: tabbedLine + "Choose a Fighting Style using the \"Choose Feature\" button above",
+			choices: ["Defense", "Dueling", "Fleet Foot", "Two-Weapon Fighting"],
+			choicesNotInMenu: false,
+			defense: {
+				name: "Defense Fighting Style", //required;
+				description: tabbedLine + "While you are wearing armor, you gain +1 bonus to AC",
+				extraAC: {
+					name: "Defense Fighting Style", // necessary for features referring to fighting style properties directly
+					mod: 1,
+					text: "I gain a +1 bonus to AC while wearing armor.",
+					stopeval: function (v) { return !v.wearingArmor; }
+				}
+			},
+			dueling: {
+				name: "Dueling Fighting Style",
+				description: tabbedLine + "+2 to damage rolls when wielding a melee weapon in one hand and no other weapons",
+				calcChanges: {
+					atkCalc: [
+						function (fields, v, output) {
+							for (var i = 1; i <= FieldNumbers.actions; i++) {
+								if ((/off.hand.attack/i).test(What('Bonus Action ' + i))) return;
+							};
+							if (v.isMeleeWeapon && !v.isNaturalWeapon && !(/((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i).test(fields.Description)) output.extraDmg += 2;
+						},
+						"When I'm wielding a melee weapon in one hand and no weapon in my other hand, I do +2 damage with that melee weapon. This condition will always be false if the bonus action 'Off-hand Attack' exists."
+					]
+				}
+			},
+			"fleet foot": {
+				name: "Fleet Foot Style", //required;
+				description: tabbedLine + "My movement speed increases by 5ft",
+				speed: {
+					walk: { spd: "+5", enc: "+5" },
+					burrow: { spd: "+5", enc: "+5" },
+				}
+			},
+			"two-weapon fighting": {
+				name: "Two-Weapon Fighting Style",
+				description: tabbedLine + "I can add my ability modifier to the damage of my off-hand attacks",
+				calcChanges: {
+					atkCalc: [
+						function (fields, v, output) {
+							if (v.isOffHand) output.modToDmg = true;
+						},
+						"When engaging in two-weapon fighting, I can add my ability modifier to the damage of my off-hand attacks. If a melee weapon includes 'off-hand' or 'secondary' in its name or description, it is considered an off-hand attack."
+					]
+				}
+			},
+		},
+		subclassfeature6: {
+			name: "Double Step",
+			source: ["FF", 57],
+			minlevel: 6,
+			description: tabbedLine + "[1 Dazzling Dance charge] I can make an extra melee weapon attack",
+		},
+		subclassfeature11: {
+			name: "Flawless Flow",
+			source: ["FF", 57],
+			minlevel: 11,
+			description: tabbedLine + "After casting a spell, I can make a melee weapon attack",
+			action: ["bonus action", ""]
+		},
+		subclassfeature15: {
+			name: "Lamia Bite",
+			source: ["FF", 57],
+			minlevel: 15,
+			description: tabbedLine+ "[4 Dazzling Dance charges] My range to make a crit hit is reduced by 4",
+		},
+	}
+});
 
 // As suggested, this is based on the Handaxe
 WeaponsList["chakram"] = {
