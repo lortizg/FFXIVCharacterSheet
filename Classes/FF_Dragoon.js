@@ -68,10 +68,10 @@ ClassList[className] = {
 	regExpSearch: /^(?=.*dragoon).*$/i,
 	source: ["FF", 128],
 	primaryAbility: "Strength",
-	prereqs: "Charisma 13 or Dexterity 13",
+	prereqs: "Strength 13 or Dexterity 13",
 	die: 10,
 	improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-	saves: [AbilityScores.fields.dex, AbilityScores.fields.cha],
+	saves: [AbilityScores.fields.dex, AbilityScores.fields.str],
 	skills: [
 		"\n\n" + className + ": Choose two from " + skillsToSelect + ".",
 		"\n\n" + className + ""
@@ -81,9 +81,6 @@ ClassList[className] = {
 	},
 	weaponProfs: {
 		primary: [classWeaponProfs.SIMPLE, classWeaponProfs.MARTIAL, classWeaponProfs.OTHER]
-	},
-	toolProfs: {
-		primary: [["Artisan's Tools", 2]]
 	},
 	equipment:
 		className + " starting equipment:"
