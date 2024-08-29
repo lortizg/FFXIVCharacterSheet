@@ -62,7 +62,7 @@ SourceList["FF:DRG"] = {
 	date: "2020/11/25"
 };
 
-// --- Red Mage class ---
+// --- Dragoon class ---
 ClassList[className] = {
 	name: classNameTitle,
 	regExpSearch: /^(?=.*dragoon).*$/i,
