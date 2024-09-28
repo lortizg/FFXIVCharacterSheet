@@ -37,8 +37,8 @@ var classWeaponProfs = {
 
 var subclasses = [
 	{
-		subclassName: 'sworddancer',
-		subclassTitle: 'Sword Dancer'
+		subclassName: 'sworddnc',
+		subclassTitle: 'Sworddnc'
 	},
 	{
 		subclassName: 'spellslinger',
@@ -51,12 +51,13 @@ var subclasses = [
 ]
 
 
-RequiredSheetVersion("13.0.6");
+
+RequiredSheetVersion("13.1.14");
 
 // --- Source ---
-SourceList["FF:RM"] = {
+SourceList["FF:RDM"] = {
 	name: "FFXIV x D&D Compendium: " + classNameTitle,
-	abbreviation: "FF:RM",
+	abbreviation: "FF:RDM",
 	group: "Final Fantasy",
 	url: "https://www.gmbinder.com/share/-LsDqsNbupzeLhkTIcPv",
 	date: "2020/11/25"
@@ -94,7 +95,7 @@ ClassList[className] = {
 		+ bulletedLine + "An explorer's pack -or- a dungeoneer's pack",
 	subclasses: ["Battle with Style", []],
 	attacks: [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-	abilitySave: 5,
+	abilitySave: AbilityScores.charisma.index,
 	spellcastingFactor: 1,
 	spellcastingKnown: {
 		cantrips: [4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
@@ -290,7 +291,7 @@ ClassList[className] = {
 };
 
 AddSubClass(className, subclasses[0].subclassName, {
-	regExpSearch: /^(?=.*sword)(?=.*dancer).*$/i,
+	regExpSearch: /^(?=.*sworddnc).*$/i,
 	subname: subclasses[0].subclassTitle,
 	fullname: subclasses[0].subclassTitle,
 	source: ["FF", 131],
