@@ -180,18 +180,18 @@ CreatureList["mechanical turret"] = {
 	attacks: [{
 		name: "Point Blank",
 		ability: 0,
-		damage: [1, "6+2", "piercing"],
+		damage: [1, "6", "piercing"],
 		range: "Melee (5 ft)",
-		description: "",
-		modifiers: ['oInt', 'oProf']
+		description: "Default dmg: 8",
+		modifiers: ['oInt', 'oProf+2']
 	},
 	{
 		name: "Turret Shot",
 		ability: 0,
-		damage: [1, "8+2", "piercing"],
+		damage: [1, "8", "piercing"],
 		range: "30 ft",
-		description: "",
-		modifiers: ['oInt', 'oProf']
+		description: "Default dmg: 9",
+		modifiers: ['oInt', 'oProf+2']
 	}],
 	skills: {},
 	damage_immunities: "poison, psychic",
@@ -213,3 +213,51 @@ CreatureList["mechanical turret"] = {
 		setAltHp: true,
 	}
 }
+
+AddSubClass(className, subclasses[2].subclassName, {
+	regExpSearch: /^(?=.*inventor)(?=.*legacy).*$/i,
+	subname: subclasses[2].subclassTitle,
+	fullname: subclasses[2].subclassTitle,
+	source: ["FF", 78],
+	features: {
+		subclassfeature3: {
+			name: "Well Oiled Machines",
+			source: ["FF", 78],
+			minlevel: 3,
+			description: desc(["When I attack with an Invention, it deals extra Int mod dmg."]),
+		},
+		subclassfeature7: {
+			name: "Overnight Success",
+			source: ["FF", 67],
+			minlevel: 7,
+			description: desc(["I can disassemble one of my inventions and replace it with a new one."
+			]),
+			usages: 1,
+			recovery: "long rest"
+		},
+		subclassfeature11: {
+			name: "Battery Stabilizer",
+			source: ["FF", 67],
+			minlevel: 11,
+			description: desc(["My batteries have twice its charges."])
+		},
+		subclassfeature15: {
+			name: "Jerry-Rigged",
+			source: ["FF", 67],
+			minlevel: 15,
+			description: desc(["I can combine inventions that require 1/2 hands into a single one. Should not exceed 5 hands. I hold this new invention using 2 hands."])
+		},
+		subclassfeature20: {
+			name: "Hyper Charger",
+			source: ["FF", 67],
+			minlevel: 20,
+			description: desc([
+				"I can charge 2 Aether Batteries.",
+				"The bonus dmg of Well Oiled Machines is doubled."
+			]),
+			action: "action",
+			usages: 1,
+			recovery: "long rest"
+		},
+	}
+});
