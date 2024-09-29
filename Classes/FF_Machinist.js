@@ -106,18 +106,22 @@ ClassList[className] = {
 			minlevel: 1,
 			description: desc([
 				"Choose an Invention using the \"Choose Feature\" button above.",
-				"After 3 long rests, I can disassemble one invention and build a new one."
+				"After 3 long rests, I can replace one invention with another."
 			]),
 			additional: levels.map(function (n) {
 				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6) + " inventions";
 			}),
-			choices: ["aether_detector", "dueling", "great_weapon", "protection", "two_weapon"],
+			extraTimes: levels.map(function (n) {
+				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6);
+			}),
+			extrachoices: ["Aether Detector", "Bio Blaster"],
 			choicesNotInMenu: false,
-			aether_detector: {
+			"aether detector": {
 				name: "Aether Detector",
-				description: desc(
+				description: desc([
 					"Battery Usage: 10 minutes (1 charge per minute of use)",
-					"I can cast Detect Magic."),
+					"I can cast Detect Magic."
+				]),
 				source: [["SRD", 48], ["P", 110]],
 				spellcastingBonus: [{
 					name: "Aether Detector",
@@ -127,11 +131,36 @@ ClassList[className] = {
 				}],
 				spellChanges: {
 					"detect magic": {
+						name: "Aether Detector",
 						range: "Self",
 						components: "M",
-						compMaterial: "Aetherial Batteries x 1min",
+						compMaterial: "Aether Batteries x 1min",
 						description: "Know presence of magic within 30 ft; 1 a to see an aura around the crea. or obj.",
-						changes : "I use Aether Detector invention and Aetherial Batteries to cast this spell. Instead of knowing the school, I see an aura around visible creatures or objects as an action.",
+						changes: "I use Aether Detector invention and Aether Batteries to cast this spell. Instead of knowing the school, I see an aura around visible creatures or objects as an action.",
+					}
+				}
+			},
+			"bio blaster": {
+				name: "Bio Blaster",
+				description: desc([
+					"10 attacks (1 carge per attack)",
+					"I can cast Bio Blaster."
+				]),
+				source: [["SRD", 48], ["P", 110]],
+				spellcastingBonus: [{
+					name: "Bio Blaster",
+					spells: ["ray of sickness"],
+					selection: ["ray of sickness"],
+					firstCol: "atwill"
+				}],
+				spellChanges: {
+					"ray of sickness": {
+						name: "Bio Blaster",
+						components: "M",
+						range: "15ft Cone",
+						compMaterial: "Aether Batteries x attack",
+						description: "All 4d4 Poison dmg; poisoned and repeat save with disadv. at end of their turn; save half and not poisoned",
+						changes: "I use Bio Blaster invention and Aether Batteries to cast this spell. I deal 4d4 dmg and the creature repeats the saving throw with disadvantage at the end of their turns",
 					}
 				}
 			},
