@@ -115,7 +115,7 @@ ClassList[className] = {
 			extraTimes: levels.map(function (n) {
 				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6);
 			}),
-			extrachoices: ["Aether Detector", "Bio Blaster", "Chocobo Boots"],
+			extrachoices: ["Aether Detector", "Bio Blaster", "Chocobo Boots", "Climber's Claws"],
 			choicesNotInMenu: false,
 			"aether detector": {
 				name: "Aether Detector",
@@ -169,12 +169,23 @@ ClassList[className] = {
 				name: "Chocobo Boots",
 				description: desc([
 					"10 hours (1 charge per hour)",
+					"I get extra 5ft speed.",
+					"I can use my bonus action to get the benefit of the Longstrider or Jump spell until the end of my next turn."
+				]),
+				action: ["bonus action", ""],
+				source: ["FF", 78],
+				speed: { allModes: "+5" }
+			},
+			"climber's claws": {
+				name: "Climber's Claws",
+				description: desc([
+					"10 hours (1 charge per hour)",
 					"I get climbing speed. My unarmored strikes deal 1d4 piercing dmg"
 				]),
 				source: ["FF", 78],
 				speed: { climb: { spd: "walk", enc: "walk" } },
-				calcChanges : {
-					atkAdd : [
+				calcChanges: {
+					atkAdd: [
 						function (fields, v) {
 							if (classes.known.machinist && classes.known.machinist.level && v.baseWeaponName == "unarmed strike") {
 								fields.Damage_Die = '1d4';
