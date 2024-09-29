@@ -137,7 +137,10 @@ ClassList[className] = {
 			extraTimes: levels.map(function (n) {
 				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6);
 			}),
-			extrachoices: ["Aether Detector", "Bio Blaster", "Chocobo Boots", "Climber's Claws", "Snare Trap"],
+			extrachoices: [
+				"Aether Detector", "Bio Blaster", "Chocobo Boots", "Climber's Claws", "Snare Trap",
+				"Hawkeye Mask (prereq: level 5 machinist)"
+			],
 			choicesNotInMenu: false,
 			"aether detector": {
 				name: "Aether Detector",
@@ -230,6 +233,27 @@ ClassList[className] = {
 					spells: ["snare trap"],
 					selection: ["snare trap"]
 				}],
+			},
+			"hawkeye mask (prereq: level 5 machinist)": {
+				name: "Hawkeye Mask",
+				description: desc([
+					"10 hours (1 charge per hour)",
+					"I get prof in perception skill. I can use intelligence for the rolls. I can see up to 4 miles.",
+					"My ranged weapons have 30ft more range"
+				]),
+				source: ["FF", 79],
+				prereqeval: function (v) { return classes.known.machinist.level >= 5 },
+				calcChanges: {
+					atkAdd: [
+						function (fields, v) {
+							if (classes.known.machinist && classes.known.machinist.level && v.isRangedWeapon) {
+								fields.Description += (fields.Description ? '; ' : '') + '30ft more range'
+							};
+						},
+						"My ranged weapons have 30 more ft range.",
+						5
+					]
+				}
 			},
 		},
 		aether_battery: {
