@@ -53,49 +53,6 @@ var subclasses = [
 
 RequiredSheetVersion("13.0.6");
 
-CompanionList["Void Avatar"] = {
-	name: "Void Avatar",
-	nameTooltip: "Reaper: Void Avatar",
-	nameOrigin: "Reaper 1",
-	nameMenu: "Void Avatar (2024 Reaper feature)",
-	source: [["FF", 103]],
-	action: [
-		["action", "Rend"]
-	],
-	notes: [{
-		name: "Void Bond",
-		description: "I can add my proficency to  any ability check or saving throw that it makes.",
-		joinString: " "
-	}],
-	attributesAdd: {
-		header: "Voidsent",
-		senses: "Darkvision 60 ft",
-		ac: '13+Prof',
-		size: 3,
-		languages: "understands the languages its creator speaks",
-		type: "Fiend",
-		attacks: [{
-			name: "Rend",
-			ability: 5,
-			damage: [1, "8+2+Prof", "slashing"],
-			range: "5 ft",
-			description: ""
-		}],
-	},
-	calcChanges: {
-		hp: function (totalHD, HDobj, prefix) {
-			if (!classes.known.className) return;
-			var creaHP = CurrentCompRace[prefix] && CurrentCompRace[prefix].hp ? CurrentCompRace[prefix].hp : 5;
-			var creaName = CurrentCompRace[prefix] && CurrentCompRace[prefix].name ? CurrentCompRace[prefix].name : "the creature";
-			var rngrLvl = classes.known.className.level;
-			var rngrCompHp = 4 * rngrLvl;
-			HDobj.alt.push(Math.max(creaHP, rngrCompHp));
-			HDobj.altStr.push(" = the highest of either\n \u2022 " + creaHp + " from " + creaName + "'s normal maximum HP, or\n \u2022 4 \xD7 " + rngrLvl + " from four times my ranger level (" + rngrCompHp + ")");
-		},
-		setAltHp: true,
-	},
-}
-
 // --- Source ---
 SourceList["FF:RPR"] = {
 	name: "FFXIV x D&D Compendium: " + classNameTitle,
@@ -105,7 +62,7 @@ SourceList["FF:RPR"] = {
 	date: "2020/11/25"
 };
 
-// --- Red Mage class ---
+// --- Reaper class ---
 ClassList[className] = {
 	name: classNameTitle,
 	regExpSearch: /^(?=.*reaper).*$/i,
@@ -257,9 +214,10 @@ ClassList[className] = {
 	features: {
 		dark_alliance: {
 			name: "Dark Alliance",
-			source: ["FF", 103],
+			source: ["FF", 109],
 			minlevel: 1,
 			description: "I can spend one of my attacks to make Void Avatar attack",
+			usages: 1,
 			recovery: "long rest",
 			creaturesAdd: [["Void Avatar"]],
 			action: ["action", "Void Avatar attack"]
@@ -338,9 +296,19 @@ ClassList[className] = {
 				}
 			},
 		},
+		enshroud: {
+			name: "Enshroud",
+			source: ["FF", 109],
+			minlevel: 3,
+			description: desc([
+				"I act as a host for my Void Avatar. Doing so, I can spend Prof HD and gain temporary HP.",
+				"I can cast this again to repeat or to make the Avatar return"
+			]),
+			action: ["bonus action", ""]
+		},
 		sixth_sense: {
 			name: "Sixth Sense",
-			source: ["FF", 104],
+			source: ["FF", 109],
 			minlevel: 6,
 			description: tabbedLine + "I can cast See Invisibility and Speak with Dead each once per long rest without requiring a spell slot.",
 			spellcastingBonus: {
@@ -350,6 +318,32 @@ ClassList[className] = {
 				firstCol: "oncelr",
 				times: 2
 			},
+		},
+		harvest_moon: {
+			name: "Harvest Moon",
+			source: ["FF", 109],
+			minlevel: 9,
+			description: desc([
+				"I can deal a necrotic attack. All crea in 10ft rad make Dexterity save or take 1d12 necrotic dmg"
+			]),
+			weaponOptions: {
+				regExpSearch: /^(?=.*harvest)(?=.*moon).*$/i,
+				name: "Harvest Moon",
+				source: [["FF", 65]],
+				list: "melee",
+				ability: AbilityScores.wisdom.index + 1,
+				type: "Natural",
+				damage: ["Weapon (full) + 1", "12", "necrotic"],
+				range: "10ft rad",
+				description: "Dex save, success - half dmg",
+				abilitytodamage: false,
+				dc: true,
+				tooltip: "I make full damage of my weapon",
+				isNotWeapon: true,
+				selectNow: true
+			},
+			action: ["action", ""]
+
 		},
 		death_design: {
 			name: "Death Design",
@@ -465,3 +459,52 @@ AddSubClass(className, subclasses[2].subclassName, {
 	}
 });
 
+CreatureList["Void Avatar"] = {
+	name: "Void Avatar",
+	nameAlt: "Void Avatar",
+	source: ["FF", 103],
+	size: 3,
+	type: "Fiend",
+	subtype: "Voidsent",
+	companion: "familiar",
+	companionApply: "voidavatar",
+	alignment: "Unaligned",
+	ac: '13+Prof',
+	hp: 5,
+	hd: [4, 6],
+	hdLinked: ["reaper"],
+	speed: "30 ft",
+	proficiencyBonus: 2,
+	proficiencyBonusLinked: true,
+	challengeRating: "",
+	scores: [14, 14, 15, 8, 14, 11],
+	saves: ["", "", "", "", "", ""],
+	senses: "darkvision 60ft., passive Perception 12",
+	attacksAction: 1,
+	attacks: [{
+		name: "Rend",
+		ability: 0,
+		damage: [1, "8", "slashing"],
+		range: "Melee (5 ft)",
+		description: "Default dmg: 9",
+		modifiers: ['oWis', 'oProf+2']
+	}],
+	skills: {},
+	notes: "If incapacitated, it can take any action of its choice",
+	languages: "Understands languages of its creator. Cannot speak",
+	minlevelLinked: ["reaper"],
+	addMod: [
+		{ type: "skill", field: "all", mod: "Prof", text: "The voidsent adds its master's proficency to all its skills checks." },
+		{ type: "save", field: "all", mod: "Prof", text: "The voidsent adds its master's proficency to all its saving throws." }
+	],
+	calcChanges: {
+		hp: function (totalHD, HDobj, prefix) {
+			if (!classes.known.reaper) return;
+			var reaperlvl = classes.known.reaper.level;
+			var reaperlvlhp = 4 * reaperlvl + 5;
+			HDobj.alt.push(reaperlvlhp);
+			HDobj.altStr.push(" = 5 +" + reaperlvl + " from four times my reaper level (" + reaperlvlhp + ")");
+		},
+		setAltHp: true,
+	}
+}
