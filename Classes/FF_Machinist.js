@@ -111,10 +111,11 @@ ClassList[className] = {
 			additional: levels.map(function (n) {
 				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6) + " inventions";
 			}),
+			extraname: "Inventions",
 			extraTimes: levels.map(function (n) {
 				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6);
 			}),
-			extrachoices: ["Aether Detector", "Bio Blaster"],
+			extrachoices: ["Aether Detector", "Bio Blaster", "Chocobo Boots"],
 			choicesNotInMenu: false,
 			"aether detector": {
 				name: "Aether Detector",
@@ -122,7 +123,7 @@ ClassList[className] = {
 					"Battery Usage: 10 minutes (1 charge per minute of use)",
 					"I can cast Detect Magic."
 				]),
-				source: [["SRD", 48], ["P", 110]],
+				source: ["FF", 78],
 				spellcastingBonus: [{
 					name: "Aether Detector",
 					spells: ["detect magic"],
@@ -143,10 +144,10 @@ ClassList[className] = {
 			"bio blaster": {
 				name: "Bio Blaster",
 				description: desc([
-					"10 attacks (1 carge per attack)",
+					"10 attacks (1 charge per attack)",
 					"I can cast Bio Blaster."
 				]),
-				source: [["SRD", 48], ["P", 110]],
+				source: ["FF", 78],
 				spellcastingBonus: [{
 					name: "Bio Blaster",
 					spells: ["ray of sickness"],
@@ -162,6 +163,27 @@ ClassList[className] = {
 						description: "All 4d4 Poison dmg; poisoned and repeat save with disadv. at end of their turn; save half and not poisoned",
 						changes: "I use Bio Blaster invention and Aether Batteries to cast this spell. I deal 4d4 dmg and the creature repeats the saving throw with disadvantage at the end of their turns",
 					}
+				}
+			},
+			"chocobo boots": {
+				name: "Chocobo Boots",
+				description: desc([
+					"10 hours (1 charge per hour)",
+					"I get climbing speed. My unarmored strikes deal 1d4 piercing dmg"
+				]),
+				source: ["FF", 78],
+				speed: { climb: { spd: "walk", enc: "walk" } },
+				calcChanges : {
+					atkAdd : [
+						function (fields, v) {
+							if (classes.known.machinist && classes.known.machinist.level && v.baseWeaponName == "unarmed strike") {
+								fields.Damage_Die = '1d4';
+								fields.Damage_Type = 'Piercing'
+							};
+						},
+						"My unarmored strikes deal 1d4 piercing dmg.",
+						5
+					]
 				}
 			},
 		},
