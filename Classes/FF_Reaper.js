@@ -62,6 +62,34 @@ SourceList["FF:RPR"] = {
 	date: "2020/11/25"
 };
 
+// --- Class features as spells ---
+SpellsList['death design'] = {
+	name: "Death's Design",
+	source: ["FF", 79],
+	classes: ["reaper"],
+	level: 1,
+	time: "Instantaneous",
+	range: "Melee (5ft)",
+	rangeMetric: "Melee",
+	duration: "",
+	save: "Cha",
+	description: "After attack, take 3d8+1d8/SL Necrotic dmg and frightened; save half and not frightened",
+	firstCol: "atwill",
+}
+SpellsList['soul slice'] = {
+	name: "Soul Slice",
+	source: ["FF", 79],
+	classes: ["reaper"],
+	level: 1,
+	time: "Instantaneous",
+	range: "5ft/15ft cone from target",
+	rangeMetric: "Melee",
+	duration: "",
+	save: "Dex",
+	description: "After attack, All take 2d6+1d6/SL Necrotic dmg; save half. 15ft if host",
+	firstCol: "atwill",
+}
+
 // --- Reaper class ---
 ClassList[className] = {
 	name: classNameTitle,
@@ -216,7 +244,7 @@ ClassList[className] = {
 			name: "Dark Alliance",
 			source: ["FF", 109],
 			minlevel: 1,
-			description: "I can spend one of my attacks to make Void Avatar attack",
+			description: desc(["I can spend one of my attacks to make Void Avatar attack"]),
 			usages: 1,
 			recovery: "long rest",
 			creaturesAdd: [["Void Avatar"]],
@@ -310,7 +338,7 @@ ClassList[className] = {
 			name: "Sixth Sense",
 			source: ["FF", 109],
 			minlevel: 6,
-			description: tabbedLine + "I can cast See Invisibility and Speak with Dead each once per long rest without requiring a spell slot.",
+			description: desc(["I can cast See Invisibility and Speak with Dead each once per long rest without requiring a spell slot."]),
 			spellcastingBonus: {
 				name: "Sixth Sense",
 				spells: ["see invisibility", "speak with dead"],
@@ -349,8 +377,78 @@ ClassList[className] = {
 			name: "Death Design",
 			source: ["FF", 104],
 			minlevel: 10,
-			description: tabbedLine + "After hiting a creature with a melee weapon attack I can spend a lvl1 spell slot to make it take a Charisma saving throw. Take 3d8 necrotic dmg and become frightened; half if saved. 1d8 more per higher spell slot",
-			action: ["action", "Death Design"]
+			description: desc([
+				"After hiting a creature with a melee weapon attack I can spend a lvl1 spell slot to make it take a Charisma saving throw. Take 3d8 necrotic dmg and become frightened; half if saved. 1d8 more per higher spell slot"
+			]),
+			spellcastingBonus: [{
+				name: "Death's Design",
+				spells: ["death design"],
+				selection: ["death design"],
+				firstCol: "atwill"
+			}]
+		},
+		shadow_walk: {
+			name: "Shadow Walk",
+			source: ["FF", 109],
+			minlevel: 13,
+			description: desc([
+				"I can assume a spectral form",
+				"For 10 minutes, I have a 10 ft. fly speed (with hover)",
+				"I can move through creatures/objects as difficult terrain",
+				"If I end my turn in a creature/object, I take 1d10 force damage",
+				"I can use this once per long rest or if I destroy a soul trinket when using this bonus action",
+			]),
+			action: ["bonus action", ""],
+			usages: "Wisdom mod per ",
+			usagescalc: "event.value = Number(What('Wis Mod'))",
+			recovery: "long rest",
+
+		},
+		void_gaze: {
+			name: "Void Gaze",
+			source: ["FF", 109],
+			minlevel: 14,
+			description: "",
+			senses: "True Sight 30ft while Void Avatar is hosted"
+		},
+		dark_martyr: {
+			name: "Dark Martyr",
+			source: ["FF", 109],
+			minlevel: 17,
+			description: desc([
+				"When I fall to 0HP, instead, i can dismiss my Void Avatar and recover 4d8+Wis HP and fall prone."
+			]),
+			action: ["reaction", ""]
+		},
+		gate_of_tartarus: {
+			name: "Gate of Tartarus",
+			source: ["FF", 109],
+			minlevel: 18,
+			description: desc([
+				"I act as a host for my Void Avatar. Doing so, I can spend Prof HD and gain temporary HP.",
+				"I can cast this again to repeat or to make the Avatar return"
+			]),
+			spellcastingBonus: [{
+				name: "Gate of Tartarus",
+				spells: ["plane shift"],
+				selection: ["plane shift"],
+				firstCol: "oncelr"
+			}],
+			spellChanges: {
+				"plane shift": {
+					components: "V, S",
+					compMaterial: "",
+					changes: "I cannot use this to banish an unwilling creature. I don't need material components. Casting this again will cause a level of exhaustion",
+				}
+			}
+		},
+		vessel_of_death: {
+			name: "Vessel of Death",
+			source: ["FF", 109],
+			minlevel: 20,
+			description: desc([
+				"I always gain the benefit of hosting the void avatar"
+			])
 		}
 	}
 };
@@ -363,19 +461,48 @@ AddSubClass(className, subclasses[0].subclassName, {
 	features: {
 		subclassfeature3: {
 			name: "Soul Slice",
-			source: ["FF", 113],
+			source: ["FF", 110],
 			minlevel: 3,
-			description: tabbedLine + "After hiting a creature with a melee weapon attack I can spend a lvl1 spell slot to make it and every creature within 5ft take a Dexterity saving throw. Take 2d6 necrotic dmg; half if saved. 1d6 more per higher spell slot"
-				+ tabbedLine + "If Void Avatar is invoked, the range increases to 15ft cone from the target",
-			action: ["action", "Soul Slice"]
+			spellcastingBonus: [{
+				spells: ["soul slice"],
+				selection: ["soul slice"],
+			}]
 		},
-		"subclassfeature3.1": {
+		subclassfeature7: {
 			name: "Wraith Walk",
-			source: ["FF", 113],
+			source: ["FF", 110],
 			minlevel: 7,
-			description: tabbedLine + "I can spend a lvl1 spell slot to hover and increase my speed by 5ft; additional 5ft per higher spell slot",
-			action: ["action", "Soul Slice"]
+			description: tabbedLine + "I can spend a lvl1 spell slot to hover and increase my speed by 5ft (1min); additional 5ft per higher spell slot",
+			action: ["action", ""]
 		},
+		subclassfeature11: {
+			name: "Reaper's Rend",
+			source: ["FF", 110],
+			minlevel: 11,
+			description: desc([
+				"While hosting the avatar, I can make it attack at bonus action."
+			]),
+			action: ["bonus action", "Void Avatar Attack"]
+		},
+		subclassfeature15: {
+			name: "Hands of Death",
+			source: ["FF", 110],
+			minlevel: 15,
+			description: desc([
+				"Range of melee weapons attack and reaction increases."
+			]),
+			calcChanges: {
+				atkAdd: [
+					function (fields, v) {
+						if (classes.known.reaper && classes.known.reaper.level && !v.isSpell && !v.isDC && v.isMeleeWeapon) {
+							fields.Range = 'Melee (10ft)';
+						};
+					},
+					"Increased range from my weapon attacks by 5ft. Increased opportunity attack range.",
+					700
+				]
+			}
+		}
 	}
 });
 
@@ -392,16 +519,36 @@ AddSubClass(className, subclasses[1].subclassName, {
 			description: tabbedLine + "I can cast spells centered from Void Avatar instead of me",
 			usages: 3,
 			recovery: "long rest",
-			action: ["action", "Soul Slice"]
+			action: ["action", ""]
 		},
-		"subclassfeature3.1": {
+		subclassfeature7: {
 			name: "Death Perception",
-			source: ["FF", 105],
+			source: ["FF", 110],
 			minlevel: 7,
 			description: tabbedLine + "I can communicate telepathically with Void Avatar within 100ft"
 				+ tabbedLine + "I can see and hear through Void Avatar until the start of my next turn. I gain any Special Senses it has and I become blind and deaf from my own senses",
 			action: ["action", "Death Perception"]
 		},
+		subclassfeature11: {
+			name: "Ravenous Rending",
+			source: ["FF", 110],
+			minlevel: 11,
+			description: desc([
+				"My void avatar gets 2 attacks"
+			])
+		},
+		subclassfeature15: {
+			name: "Gluttony",
+			source: ["FF", 110],
+			minlevel: 15,
+			description: desc([
+				"All hostile within 10ft of my Void Avatar for the first time on a turn must make a Dex save or take 20 Necrotic dmg; save half. Until 60 damage."
+			]),
+			usages: "Half Proficiency bonus (down) per ",
+			usagescalc: "event.value = Number(Math.floor(What('Proficiency Bonus')/2))",
+			recovery: "long rest",
+			action: ["action", ""]
+		}
 	}
 });
 
@@ -418,9 +565,10 @@ AddSubClass(className, subclasses[2].subclassName, {
 			description: tabbedLine + "I can cast a spell spending twice the souls of a spell slot lvl."
 				+ tabbedLine + "I gain these souls when a hostile crea. dies within 30ft. They vanish after long rest"
 				+ tabbedLine + "Range increases to 60ft if Void Avatar is invoked",
-			usages: [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6],
+			usages: "Proficiency bonus per ",
+			usagescalc: "event.value = Number(What('Proficiency Bonus'))",
 			recovery: "long rest",
-			action: ["action", "Soul Slice"],
+			action: ["action", ""],
 			additional: "Souls",
 			limfeaname: "Souls"
 		},
@@ -431,10 +579,10 @@ AddSubClass(className, subclasses[2].subclassName, {
 			description: "",
 			spellcastingBonus: {
 				spells: ["toll the dead"],
-				spells: ["toll the dead"]
+				selection: ["toll the dead"]
 			},
 		},
-		"subclassfeature3.2": function () {
+		subclassfeature7: function () {
 			var a = {
 				name: "Keeper of Shadowy Secrets",
 				source: ["FF", 106],
@@ -456,6 +604,24 @@ AddSubClass(className, subclasses[2].subclassName, {
 			}
 			return a;
 		}(),
+		subclassfeature11: {
+			name: "Void Curse",
+			source: ["FF", 111],
+			minlevel: 11,
+			description: desc([
+				"[2 souls] While hosting my avatar, I can make a creature within 30ft do a Charisma save or cursed and has a penalty on the next saving throw of my Proficency Bonus."
+			]),
+			action: ["bonus action", '']
+		},
+		subclassfeature15: {
+			name: "Hell's Regress",
+			source: ["FF", 111],
+			minlevel: 15,
+			description: desc([
+				"[1 Soul/Nothing if hosting] If hit with a Melee weapon attack, I can teleport to an unoccupied space that I can see."
+			]),
+			action: ['reaction', '']
+		}
 	}
 });
 
@@ -473,7 +639,7 @@ CreatureList["Void Avatar"] = {
 	hp: 5,
 	hd: [4, 6],
 	hdLinked: ["reaper"],
-	speed: "30 ft",
+	speed: "30 ft (hover)",
 	proficiencyBonus: 2,
 	proficiencyBonusLinked: true,
 	challengeRating: "",
