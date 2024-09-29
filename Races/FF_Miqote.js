@@ -42,8 +42,7 @@ RaceList[moonRaceName] = {
 	plural: moonRaceNameTitlePlural,
 	size: 3,
 	speed: {
-		walk: { spd: 30, enc: 20 },
-		climb: { spd: 30, enc: 20 }
+		walk: { spd: 30, enc: 20 }
 	},
 	languageProfs: ["Common", 1],
 	skills: ["Perception"],
