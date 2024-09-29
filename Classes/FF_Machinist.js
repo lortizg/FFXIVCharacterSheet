@@ -100,6 +100,42 @@ ClassList[className] = {
 	attacks: [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
 	abilitySave: AbilityScores.intelligence.index + 1,
 	features: {
+		inventions: {
+			name: "Inventions",
+			source: ["FF", 75],
+			minlevel: 1,
+			description: desc([
+				"Choose an Invention using the \"Choose Feature\" button above.",
+				"After 3 long rests, I can disassemble one invention and build a new one."
+			]),
+			additional: levels.map(function (n) {
+				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6) + " inventions";
+			}),
+			choices: ["aether_detector", "dueling", "great_weapon", "protection", "two_weapon"],
+			choicesNotInMenu: false,
+			aether_detector: {
+				name: "Aether Detector",
+				description: desc(
+					"Battery Usage: 10 minutes (1 charge per minute of use)",
+					"I can cast Detect Magic."),
+				source: [["SRD", 48], ["P", 110]],
+				spellcastingBonus: [{
+					name: "Aether Detector",
+					spells: ["detect magic"],
+					selection: ["detect magic"],
+					firstCol: "atwill"
+				}],
+				spellChanges: {
+					"detect magic": {
+						range: "Self",
+						components: "M",
+						compMaterial: "Aetherial Batteries x 1min",
+						description: "Know presence of magic within 30 ft; 1 a to see an aura around the crea. or obj.",
+						changes : "I use Aether Detector invention and Aetherial Batteries to cast this spell. Instead of knowing the school, I see an aura around visible creatures or objects as an action.",
+					}
+				}
+			},
+		},
 		aether_battery: {
 			name: "Aether Battery",
 			source: ["FF", 75],
