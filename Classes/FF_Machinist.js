@@ -86,6 +86,45 @@ SpellsList['snare trap'] = {
 	firstCol: "atwill",
 }
 
+SpellsList['noise blaster'] = {
+	name: "Snare Trap",
+	source: ["FF", 79],
+	classes: ["machinist"],
+	level: 1,
+	time: "Instantaneous",
+	range: "15 ft cone",
+	rangeMetric: "5 m cone",
+	components: "M",
+	compMaterial: "Aether Batteries x attack",
+	duration: "",
+	save: "Con",
+	description: "All 2d6 Thunder dmg; stunned; save half and not stunned",
+	descriptionFull: "A one handed sonic device which unleashes a thunderous concussive blast in a 15ft. cone. All creatures in range must make a Constitution saving throw against your Tech save DC. Creatures take 2d6 thunder damage on a failure and is stunned until the start of their next turn, and take half as much and are not stunned on a success.",
+	firstCol: "atwill",
+}
+
+SpellsList['flash bulb'] = {
+	name: "Flash Bulb",
+	source: ["FF", 79],
+	classes: ["machinist"],
+	level: 1,
+	time: "Instantaneous",
+	range: "30 ft cone",
+	rangeMetric: "10 m cone",
+	components: "M",
+	compMaterial: "Aether Batteries x attack",
+	duration: "",
+	save: "Con",
+	description: "All 2d6 Radiant dmg; blinded; save half and not blinded; disadv. if sunlight sensitive",
+	descriptionFull:
+		"You've developed a powerful lantern capable of unleashing a bright blinding flash of light to blind enemies. The flash bulb emits light in a 60ft. cone of bright light, and an additional 60ft. cones of dim light. 1 battery charge provides enough power for 1 hour of light."
+		+ desc([
+			"As an action you can cause the bulb to release a powerful aether laced flash of light. All creatures that are inside a 30ft. cone emitted from the Flash Bulb must make a Constitution saving throw contested by your Tech save DC. The creature takes 2d6 radiant damage and is blinded for 1 minute on a failure, and takes half as much damage and is not blinded on a success. The creature may use their action to reattempt the saving throw." +
+			"Creatures with sunlight sensitivity have disadvantage on the saving throw."
+		]),
+	firstCol: "atwill",
+}
+
 
 // --- Machinist class ---
 ClassList[className] = {
@@ -138,16 +177,13 @@ ClassList[className] = {
 				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6);
 			}),
 			extrachoices: [
-				"Aether Detector", "Bio Blaster", "Chocobo Boots", "Climber's Claws", "Snare Trap",
+				"Aether Detector", "Bio Blaster", "Chocobo Boots", "Climber's Claws", "Flash Bulb", "Noise Blaster", "Pictobox", "Snare Trap", "Sounding Sentry",
 				"Hawkeye Mask (prereq: level 5 machinist)"
 			],
 			choicesNotInMenu: false,
 			"aether detector": {
 				name: "Aether Detector",
-				description: desc([
-					"Battery Usage: 10 minutes (1 charge per minute of use)",
-					"I can cast Detect Magic."
-				]),
+				description: " Battery Usage: 10 minutes (1 charge per minute of use)" + desc(["I can cast Detect Magic."]),
 				source: ["FF", 78],
 				spellcastingBonus: [{
 					name: "Aether Detector",
@@ -168,10 +204,7 @@ ClassList[className] = {
 			},
 			"bio blaster": {
 				name: "Bio Blaster",
-				description: desc([
-					"10 attacks (1 charge per attack)",
-					"I can cast Bio Blaster."
-				]),
+				description: " 10 attacks (1 charge per attack)" + desc(["I can cast Bio Blaster."]),
 				source: ["FF", 78],
 				spellcastingBonus: [{
 					name: "Bio Blaster",
@@ -192,21 +225,21 @@ ClassList[className] = {
 			},
 			"chocobo boots": {
 				name: "Chocobo Boots",
-				description: desc([
-					"10 hours (1 charge per hour)",
-					"I get extra 5ft speed.",
-					"I can use my bonus action to get the benefit of the Longstrider or Jump spell until the end of my next turn."
-				]),
+				description: " 10 hours (1 charge per hour)" +
+					desc([
+						"I get extra 5ft speed.",
+						"I can use my bonus action to get the benefit of the Longstrider or Jump spell until the end of my next turn."
+					]),
 				action: ["bonus action", ""],
 				source: ["FF", 78],
 				speed: { allModes: "+5" }
 			},
 			"climber's claws": {
 				name: "Climber's Claws",
-				description: desc([
-					"10 hours (1 charge per hour)",
-					"I get climbing speed. My unarmored strikes deal 1d4 piercing dmg"
-				]),
+				description: " 10 hours (1 charge per hour)" +
+					desc([
+						"I get climbing speed. My unarmored strikes deal 1d4 piercing dmg"
+					]),
 				source: ["FF", 78],
 				speed: { climb: { spd: "walk", enc: "walk" } },
 				calcChanges: {
@@ -222,25 +255,70 @@ ClassList[className] = {
 					]
 				}
 			},
+			"flash bulb": {
+				name: "Flash Bulb",
+				description: " 10 attacks/hour (1 charge per attack/hour)" + desc([
+					"It emits bright light in 60ft cone, 60ft dim",
+					"I can cast Light Bulb as an action."
+				]),
+				source: ["FF", 79],
+				spellcastingBonus: [{
+					spells: ["flash bulb"],
+					selection: ["flash bulb"]
+				}],
+			},
+			"noise blaster": {
+				name: "Noise Blaster",
+				description: " 10 attacks (1 charge per attack)" + desc(["I can cast Noise Blaster."
+				]),
+				source: ["FF", 79],
+				spellcastingBonus: [{
+					spells: ["noise blaster"],
+					selection: ["noise blaster"]
+				}],
+			},
+			"pictobox": {
+				name: "Pictobox",
+				description: " 10 usages (1 use per charge)" +
+					desc([+ "I can capture images and imprint them. Needs good lighting or images will result black or smeared."]),
+				source: ["FF", 79],
+			},
 			"snare trap": {
 				name: "Snare Trap",
-				description: desc([
-					"10 hours (1 charge per hour)",
-					"I get Snare Trap spell"
-				]),
+				description: " 10 hours (1 charge per hour)" + desc([+ "I get Snare Trap spell"]),
 				source: ["FF", 79],
 				spellcastingBonus: [{
 					spells: ["snare trap"],
 					selection: ["snare trap"]
 				}],
 			},
+			"sounding sentry": {
+				name: "Sounding Sentry",
+				description: " Battery Usage: 10 hours (1 charge per hour of use)" + desc(["I can cast Detect Magic."]),
+				source: ["FF", 79],
+				spellcastingBonus: [{
+					name: "Sounding Sentry",
+					spells: ["alarm"],
+					selection: ["alarm"],
+					firstCol: "atwill"
+				}],
+				spellChanges: {
+					"alarm": {
+						name: "Sounding Sentry",
+						range: "Self",
+						components: "M",
+						compMaterial: "Aether Batteries x 1hour",
+						duration: '10 h'
+					}
+				}
+			},
 			"hawkeye mask (prereq: level 5 machinist)": {
 				name: "Hawkeye Mask",
-				description: desc([
-					"10 hours (1 charge per hour)",
-					"I get prof in perception skill. I can use intelligence for the rolls. I can see up to 4 miles.",
-					"My ranged weapons have 30ft more range"
-				]),
+				description: " 10 hours (1 charge per hour)" +
+					desc([
+						"I get prof in perception skill. I can use intelligence for the rolls. I can see up to 4 miles.",
+						"My ranged weapons have 30ft more range"
+					]),
 				source: ["FF", 79],
 				prereqeval: function (v) { return classes.known.machinist.level >= 5 },
 				calcChanges: {
