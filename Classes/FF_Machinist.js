@@ -351,6 +351,7 @@ ClassList[className] = {
 			source: ["FF", 75],
 			minlevel: 2,
 			description: desc(["I can spend one of my attacks to make Mechanical Turret attack"]),
+			usages: 1,
 			recovery: "long rest",
 			creaturesAdd: [["Mechanical Turret"]],
 			action: ["action", "Mechanical Turret attack"]
@@ -409,7 +410,7 @@ CreatureList["mechanical turret"] = {
 	challengeRating: "",
 	scores: [10, 16, 14, 1, 10, 1],
 	saves: ["", "", "", "", "", ""],
-	senses: "",
+	senses: "passive Perception 10",
 	attacksAction: 1,
 	attacks: [{
 		name: "Point Blank",
@@ -433,8 +434,8 @@ CreatureList["mechanical turret"] = {
 	languages: "Understands languages of its creator. Cannot speak",
 	minlevelLinked: ["machinist"],
 	addMod: [
-		{ type: "skill", field: "all", mod: "Prof", text: "The turret adds its master's proficeency to all its skills checks." },
-		{ type: "save", field: "all", mod: "Prof", text: "The turret adds its master's proficeency to all its saving throws." }
+		{ type: "skill", field: "all", mod: "Prof", text: "The turret adds its master's proficency to all its skills checks." },
+		{ type: "save", field: "all", mod: "Prof", text: "The turret adds its master's proficency to all its saving throws." }
 	],
 	calcChanges: {
 		hp: function (totalHD, HDobj, prefix) {
