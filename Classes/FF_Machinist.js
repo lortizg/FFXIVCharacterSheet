@@ -65,6 +65,28 @@ SourceList["FF:MCH"] = {
 	date: "2020/11/25"
 };
 
+SpellsList['snare trap'] = {
+	name: "Snare Trap",
+	source: ["FF", 79],
+	classes: ["machinist"],
+	level: 1,
+	time: "Instantaneous",
+	range: "5 ft rad",
+	rangeMetric: "3 m rad",
+	components: "M",
+	compMaterial: "Aether Batteries x hour",
+	duration: "10 h",
+	save: "Dex",
+	description: "If crea. triggers, fall prone 3ft above; disadv. to save at end of its turn; Investigation (find); Arcana (help)",
+	descriptionFull: desc([
+		"The trap is nearly invisible and requires a successful Intelligence (Investigation) check against your spell save DC to be found.",
+		"The trap triggers when a Small creature or larger moves into the area protected by the spell. The triggering creature must succeed on a Dexterity saving throw or fall prone and be hoisted into the air until it hangs upside down 3 feet above the trap, where it is restrained.",
+		"The restrained creature can make a Dexterity saving throw with disadvantage at the end of each of its turns and ends the restrained effect on a success. Alternatively, another creature that can reach the restrained creature can use an action to make an Intelligence (Arcana) check against your Tech save DC. On a success, the restrained effect also ends."
+	]),
+	firstCol: "atwill",
+}
+
+
 // --- Machinist class ---
 ClassList[className] = {
 	name: classNameTitle,
@@ -115,7 +137,7 @@ ClassList[className] = {
 			extraTimes: levels.map(function (n) {
 				return n < 6 ? 2 : (n < 9 ? 3 : n < 13 ? 4 : n < 17 ? 5 : 6);
 			}),
-			extrachoices: ["Aether Detector", "Bio Blaster", "Chocobo Boots", "Climber's Claws"],
+			extrachoices: ["Aether Detector", "Bio Blaster", "Chocobo Boots", "Climber's Claws", "Snare Trap"],
 			choicesNotInMenu: false,
 			"aether detector": {
 				name: "Aether Detector",
@@ -196,6 +218,18 @@ ClassList[className] = {
 						5
 					]
 				}
+			},
+			"snare trap": {
+				name: "Snare Trap",
+				description: desc([
+					"10 hours (1 charge per hour)",
+					"I get Snare Trap spell"
+				]),
+				source: ["FF", 79],
+				spellcastingBonus: [{
+					spells: ["snare trap"],
+					selection: ["snare trap"]
+				}],
 			},
 		},
 		aether_battery: {
