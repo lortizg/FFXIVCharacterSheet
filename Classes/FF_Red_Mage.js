@@ -37,8 +37,8 @@ var classWeaponProfs = {
 
 var subclasses = [
 	{
-		subclassName: 'sworddnc',
-		subclassTitle: 'Sworddnc'
+		subclassName: 'sworddancer',
+		subclassTitle: 'Sword Dancer'
 	},
 	{
 		subclassName: 'spellslinger',
@@ -291,7 +291,7 @@ ClassList[className] = {
 };
 
 AddSubClass(className, subclasses[0].subclassName, {
-	regExpSearch: /^(?=.*sworddnc).*$/i,
+	regExpSearch: /^(?=.*sword)(?=.*dancer).*$/i,
 	subname: subclasses[0].subclassTitle,
 	fullname: subclasses[0].subclassTitle,
 	source: ["FF", 131],

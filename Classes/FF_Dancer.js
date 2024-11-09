@@ -65,7 +65,7 @@ SourceList["FF:DRG"] = {
 // --- Dancer class ---
 ClassList[className] = {
 	name: classNameTitle,
-	regExpSearch: /^(?=.*dancer).*$/i,
+	regExpSearch: /^(?=.*dancer)(?!.*(sword|blade)).*$/i,
 	source: ["FF", 56],
 	primaryAbility: "Charisma",
 	prereqs: "Charisma 13",
