@@ -296,3 +296,57 @@ ClassList[className] = {
 		}
 	}
 };
+
+AddSubClass(className, subclasses[0].subclassName, {
+	regExpSearch: /^(?=.*mhachi).*$/i,
+	subname: subclasses[0].subclassTitle,
+	fullname: subclasses[0].subclassTitle,
+	source: ["FF", 67],
+	features: {
+		subclassfeature2: {
+			name: "",
+			source: ["FF", 42],
+			minlevel: 2,
+			description: "",
+			spellcastingExtra: [
+				"chromatic orb", "witch bolt",
+				"aganazzar's scorcher", "snilloc's snowball swarm",
+				"call lightning", "sleet storm",
+				"ice storm", "storm sphere",
+				"cone of cold", "immolation"
+			],
+			//You can also have the list be added to the known spells of a class by making the 101th entry in the array read "AddToKnown" (i.e. spellcastingExtra[100] = "AddToKnown");
+		},
+		"subclassfeature2.1": {
+			name: "Unstable Aether",
+			source: ["FF", 42],
+			minlevel: 2,
+			description: "[1 Mana Point] I can reroll any dmg die resulting in a 1 or 2, use new result."
+		},
+		subclassfeature6: {
+			name: "Polyglot",
+			source: ["FF", 42],
+			minlevel: 6,
+			description: "I can read all writing",
+			languageProfs: ["All written"]
+		},
+		subclassfeature10: {
+			name: "Aetherial Manipulation",
+			source: ["FF", 42],
+			minlevel: 10,
+			description: desc([
+				"I can now use my movement and consume Mana Points",
+				"As ba, If I casted a spell using SL, I can teleport back to the location"
+			]),
+			action: ["bonus action", ""]
+		},
+		subclassfeature14: {
+			name: "Devastating Force",
+			source: ["FF", 43],
+			minlevel: 14,
+			description: desc(["If I roll highest dmg, I can reroll and add that dmg"]),
+			usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
+			recovery: "long rest"
+		},
+	}
+});
