@@ -14,28 +14,28 @@
 
 
 // --- global vars ---
-var bulletedLine = "\n \u2022 ";
-var tabbedLine = "\n   ";
+const bulletedLine = "\n \u2022 ";
+const tabbedLine = "\n   ";
 
 // --- File particular vars ---
-var iFileName = "FF_Dancer.js";
-var className = "dancer";
-var classNameTitle = "Dancer";
+const iFileName = "FF_Dancer.js";
+const className = "dancer";
+const classNameTitle = "Dancer";
 
-var skillsToSelect = "Acrobatics, Deception, Insight, Perception, Performance, Persuasion";
-var classArmorProfs = {
+const skillsToSelect = "Acrobatics, Deception, Insight, Perception, Performance, Persuasion";
+const classArmorProfs = {
 	LIGHT: true,
 	MEDIUM: false,
 	HEAVY: false,
 	SHIELD: false
 }
-var classWeaponProfs = {
+const classWeaponProfs = {
 	SIMPLE: true,
 	MARTIAL: false,
 	OTHER: ['Chakram', 'Rapier', 'Scimitar', 'Short Sword', 'Whip']
 }
 
-var subclasses = [
+const subclasses = [
 	{
 		subclassName: 'paragon',
 		subclassTitle: 'Paragon'
@@ -387,7 +387,7 @@ AddSubClass(className, subclasses[2].subclassName, {
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
-							for (var i = 1; i <= FieldNumbers.actions; i++) {
+							for (const i = 1; i <= FieldNumbers.actions; i++) {
 								if ((/off.hand.attack/i).test(What('Bonus Action ' + i))) return;
 							};
 							if (v.isMeleeWeapon && !v.isNaturalWeapon && !(/((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i).test(fields.Description)) output.extraDmg += 2;

@@ -1,30 +1,55 @@
-/*
-	Copyright @lortizg 2024
+/*	-WHAT IS THIS?-
+	This file adds optional material to "MPMB's Character Record Sheet" found at https://flapkan.com/mpmb/charsheets
+	Import this file using the "Add Extra Materials" bookmark.
+
 */
 
+/*	-INFORMATION-
+	Subject:	Class
+	Effect:		This script add the dark knight class from FFXIV
+				This is taken from the GM Binder website (https://www.gmbinder.com/share/-LsDqsNbupzeLhkTIcPv)
+	Code by:	lortizg
+	Year:		2024
+*/
+
+
 // --- global vars ---
-var bulletedLine = "\n \u2022 ";
-var tabbedLine = "\n   ";
+const bulletedLine = "\n \u2022 ";
+const tabbedLine = "\n   ";
 
 // --- File particular vars ---
-var iFileName = "FF_Dark_Knight.js";
-var className = "darkknight";
-var classNameTitle = "Dark Knight";
-var subclass1Name = "abyssknight";
-var subclass1Title = "Abyss Knight";
-var skillsToSelect = "Athletics, Arcana, History, Insight, Intimidation, Perception, Survival";
-var classArmorProfs = {
+const iFileName = "FF_Dark_Knight.js";
+const className = "darkknight";
+const classNameTitle = "Dark Knight";
+const subclass1Name = "abyssknight";
+const subclass1Title = "Abyss Knight";
+const skillsToSelect = "Athletics, Arcana, History, Insight, Intimidation, Perception, Survival";
+const classArmorProfs = {
 	LIGHT: true,
 	MEDIUM: true,
 	HEAVY: true,
 	SHIELD: true
 }
-var classWeaponProfs = {
+const classWeaponProfs = {
 	SIMPLE: true,
 	MARTIAL: true,
 	OTHER: ''
 }
 
+const subclasses = [
+	{
+		subclassName: 'blackblood',
+		subclassTitle: 'Blackblood'
+	},
+	{
+		subclassName: 'abyssknight',
+		subclassTitle: 'Abyss Knight'
+	},
+	{
+		subclassName: 'darkmagus',
+		subclassTitle: 'Dark Magus'
+	}
+]
 
 RequiredSheetVersion("13.0.6");
 
@@ -117,7 +142,7 @@ ClassList[className] = {
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
-							for (var i = 1; i <= FieldNumbers.actions; i++) {
+							for (const i = 1; i <= FieldNumbers.actions; i++) {
 								if ((/off.hand.attack/i).test(What('Bonus Action ' + i))) return;
 							};
 							if (v.isMeleeWeapon && !v.isNaturalWeapon && !(/((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i).test(fields.Description)) output.extraDmg += 2;
@@ -238,10 +263,51 @@ ClassList[className] = {
 	}
 };
 
-AddSubClass(className, subclass1Name, {
+AddSubClass(className, subclasses[0].subclassName, {
+	regExpSearch: /^(?=.*blackblood).*$/i,
+	subname: subclasses[0].subclassTitle,
+	fullname: subclasses[0].subclassTitle,
+	source: ["FF", 64],
+	features: {
+		"subclassfeature3": {
+			name: "Plunge",
+			source: [["FF", 64]],
+			minlevel: 3,
+			description: tabbedLine + "I can spend 2d4 +1d4 per lev (cha max) to cast Burning Hands. It deals necrotic damage.", //TODO ADD DC (well of dsrkness),
+			action: ["action", "Dark Burst"],
+			spellcastingBonus: [{
+				name: "Dark Burst",
+				spells: ["burning hands"],
+				atwill: true
+			}],
+		},
+		"subclassfeature6": {
+			name: "Piercing Intimidation",
+			source: [["FF", 64]],
+			minlevel: 6,
+			description:
+				tabbedLine + "For every 20 hit points missing, I gain +1 to attack and dmg rolls (cha max)"
+				+ tabbedLine + "I gain resistance to necrotic dmg" //TODO check if it can be calculated
+		},
+		"subclassfeature11": {
+			name: "Soul Eater",
+			minlevel: 11,
+			description: tabbedLine + "I can cast Detect Good and Evil at will."
+				+ tabbedLine + "I can cast Detect Thoughts at a willing crea or spend 2 Well of Darkness points to cast it on an unwilling creature"
+		},
+		"subclassfeature17": {
+			name: "Ravaging Darkness",
+			minlevel: 17,
+			description: tabbedLine + "I can cast Detect Good and Evil at will."
+				+ tabbedLine + "I can cast Detect Thoughts at a willing crea or spend 2 Well of Darkness points to cast it on an unwilling creature"
+		}
+	}
+});
+
+AddSubClass(className, subclasses[1].subclassName, {
 	regExpSearch: /^(?=.*abyss)(?=.*knight).*$/i,
-	subname: subclass1Title,
-	fullname: subclass1Title,
+	subname: subclasses[1].subclassTitle,
+	fullname: subclasses[1].subclassTitle,
 	source: ["FF", 64],
 	features: {
 		"subclassfeature3": {
