@@ -55,14 +55,6 @@ RaceList[veenaRaceName] = {
         tabbedLine + "Lapine Hop. Your maximum high jump and long jump distances are 10ft. higher." +
         tabbedLine + "Lucky. I can reroll a 1 in a check, attack or saving throw. Must use the new one" +
         tabbedLine + "Mask of the Wild. You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena." +
-        tabbedLine + "Speak with Small Beasts. Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts.",
-    features: {
-        lucky: {
-            name: "Lucky",
-            minlevel: 1,
-            usages: 3,
-            recovery: "long rest",
-        }
-    }
+        tabbedLine + "Speak with Small Beasts. Through sounds and gestures, you can communicate simple ideas with Small or smaller beasts."
 };
 
