@@ -3,28 +3,40 @@
 */
 
 // --- global vars ---
-var bulletedLine = "\n \u2022 ";
-var tabbedLine = "\n   ";
+const bulletedLine = "\n \u2022 ";
 
-// --- File particular vars ---
-var iFileName = "FF_White_Mage.js";
-var className = "whitemage";
-var classNameTitle = "White Mage";
-var subclass1Name = "elementalist";
-var subclass1Title = "Elementalist";
-var skillsToSelect = "Arcana, Deception, Insight, Persuasion, History, Religion, Medicine";
-var classArmorProfs = {
+// --- File particular consts ---
+const iFileName = "FF_White_Mage.js";
+const className = "whitemage";
+const classNameTitle = "White Mage";
+
+const skillsToSelect = "Arcana, Deception, Insight, Persuasion, History, Religion, Medicine";
+const classArmorProfs = {
 	LIGHT: false,
 	MEDIUM: false,
 	HEAVY: false,
 	SHIELD: false
 }
-var classWeaponProfs = {
+const classWeaponProfs = {
 	SIMPLE: true,
 	MARTIAL: false,
 	OTHER: ''
 }
 
+const subclasses = [
+	{
+		subclassName: 'Elementalist',
+		subclassTitle: 'Elementalist'
+	},
+	{
+		subclassName: 'spiritmaster',
+		subclassTitle: 'Spirit Master'
+	},
+	{
+		subclassName: 'ampdapori',
+		subclassTitle: "Ampdapori"
+	}
+]
 
 RequiredSheetVersion("13.0.6");
 
@@ -63,7 +75,7 @@ ClassList[className] = {
 		+ bulletedLine + "A light crossbow and 20 bolts -or- a simple weapon;"
 		+ bulletedLine + "A spellcasting focus (cane, staff, wand...);"
 		+ bulletedLine + "An explorer's pack -or- a scholar's pack",
-	subclasses: ["Conjury Discipline", []],
+	subclasses: ["The Protectors of the Future", []],
 	attacks: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 	abilitySave: 5,
 	spellcastingFactor: 1,
@@ -111,7 +123,7 @@ ClassList[className] = {
 			"guiding bolt",
 			"healing word",
 			"inflict wounds",
-			"mage armour",
+			"mage armor",
 			"protection from evil and good",
 			"purify food and drink",
 			"shield of faith",
@@ -265,7 +277,7 @@ ClassList[className] = {
 			"gate",
 			"mass heal",
 			"storm of vengeance",
-			"true resurrection",
+			"true resurrection"
 		],
 	},
 	features: {
@@ -273,10 +285,11 @@ ClassList[className] = {
 			name: "Spellcasting",
 			source: [["FF", 130], ["FF", 300]],
 			minlevel: 1,
-			description:
-				tabbedLine + "I can cast prepared white mage cantrips/spells, using Wisdom as my spellcasting ability"
-				+ tabbedLine + "I can use an arcane focus as a spellcasting focus"
-				+ tabbedLine + "I can cast all white mage spells in my spellbook as rituals if they have the ritual tag",
+			description: desc([
+				"I can cast prepared white mage cantrips/spells, using Wisdom as my spellcasting ability",
+				"I can use an arcane focus as a spellcasting focus",
+				"I can cast all white mage spells in my spellbook as rituals if they have the ritual tag"
+			]),
 			additional: levels.map(function (n, i) {
 				return [3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5][i] + " cantrips known";
 			})
@@ -284,77 +297,89 @@ ClassList[className] = {
 
 		confession: {
 			name: "Confession",
-			source: ["FF", 130],
+			source: ["FF", 158],
 			minlevel: 1,
-			description:
-				tabbedLine + "I can cast Prayer to have 1 charge of Confession"
-				+ tabbedLine + "I can cast it again have x2 charges + 1",
+			description: desc([
+				"I can cast Prayer to have Prof charges of Confession.",
+				"When I roll Initiative, I gain Prof confession charges."
+			]),
 			recovery: "ESP",
-			usages: [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6],
+			usages: "Wis mod + Proficiency bonus per ",
+			usagescalc: "event.value = Number(What('Wis Mod') + What('Proficiency Bonus'))",
 			action: ["bonus action", "Prayer"]
 		},
 
 		reach_of_the_unseen: {
 			name: "Reach of the Unseen",
-			source: ["FF", 130],
+			source: ["FF", 158],
 			minlevel: 1,
-			description: tabbedLine + "I can spend 1 charge of Confession to convert a touch spell into a ranged spell (30ft)",
+			description: desc(["I can spend 1 charge of Confession to convert a touch spell into a ranged spell (30ft)"]),
 			action: ["action", "Reach of the Unseen"]
 		},
 
 		afflatus_solace: {
 			name: "Afflatus Solace",
-			source: ["FF", 130],
+			source: ["FF", 158],
 			minlevel: 2,
-			description:
-				tabbedLine + "I can spend x Confession charges to heal xd4 + my profficency. I cannot heal creatures with 0 hit points"
-				+ tabbedLine + "I CANNOT use Prayer until my next turn.",
+			description: desc([
+				"I can spend x Confession charges to heal xd4 + my proficency. I cannot heal creatures with 0 hit points",
+				"I CANNOT use Prayer in this turn."
+			]),
 			action: ["action", "Afflatus Solace"]
 		},
 
 		conservation_of_life: {
 			name: "Conservation of Life",
-			source: ["FF", 145],
+			source: ["FF", 158],
 			minlevel: 18,
-			description:
-				tabbedLine + "When I fall to 0 HP, all allies (excluding me) within 30ft are healed 2d8 + WIS HP"
-				+ tabbedLine + "This is not affected by Touch of the Padjal.",
+			description: desc([
+				"When I fall to 0 HP, all allies (excluding me) within 30ft are healed 2d8 + WIS HP",
+				"This is not affected by Touch of the Padjal."
+			]),
 			recovery: "long rest"
+		},
+
+		graceful_healer: {
+			name: "Graceful Healer",
+			source: ["FF", 158],
+			minlevel: 20,
+			description: desc(["When I roll initiative, I gain all my confession charges."])
 		}
 	}
 };
 
-AddSubClass(className, subclass1Name, {
+AddSubClass(className, subclasses[0].subclassName, {
 	regExpSearch: /^(?=.*elementalist).*$/i,
-	subname: subclass1Title,
-	fullname: subclass1Title,
-	source: ["FF", 131],
+	subname: subclasses[0].subclassTitle,
+	fullname: subclasses[0].subclassTitle,
+	spellcastingExtra: [
+		"earth tremor", "thunderwave",
+		"earthbind", "maximilian's earthen grasp",
+		"erupting earth", "melf's minute meteors",
+		"stoneskin", "watery sphere",
+		"conjure elemental", "control wind"
+	],
+	source: ["FF", 159],
 	features: {
 		subclassfeature2: {
 			name: "Elemental Blessing",
 			source: ["FF", 131],
 			minlevel: 2,
-			description:
-				tabbedLine + "I can expend Confession charges to bless a weapon you can see within 30ft during WIS rounds"
-				+ tabbedLine + "[1 Charge] - The damage type of the weapon changes to cold, radiant or thunder."
-				+ tabbedLine + "[2 Charges] - The weapon gains a +1 bonus on attack rolls."
-				+ tabbedLine + "[3 Charges] - The weapon's damage rolls deal bonus damage equal to your proficiency bonus.",
-			action: ["action", "Elemental Blessing"]
-		},
-		"subclassfeature2.1": {
-			name: "Extended Spells",
-			source: ["FF", 131],
-			minlevel: 2,
-			description: tabbedLine + "My link to the elements gives me with the ability to cast certain spells",
-			spellcastingExtra: ["earth tremor", "thunderwave", "earthbind", "maximilian's earthen grasp", "erupting earth", "melf's minute meteors", "stoneskin", "watery sphere", "conjure elemental", "control wind"]
+			description: desc([
+				"I can expend Confession charges to bless a weapon you can see within 30ft during WIS rounds",
+				"[1 Charge] - The damage type of the weapon changes to cold, radiant or thunder.",
+				"[2 Charges] - The weapon gains a +1 bonus on attack rolls.",
+				"[3 Charges] - The weapon's damage rolls deal bonus damage equal to your proficiency bonus."
+			]),
+			action: ["action", "Elemental BlFessing"]
 		},
 		subclassfeature6: {
 			name: "Eyes of the Elementals",
 			source: ["FF", 147],
 			minlevel: 6,
-			description:
-				tabbedLine + "I can gain a mental map of the area in 2mile radius around me."
-				+ tabbedLine + "I have to meditate during 15 mins for this.",
+			description: desc([
+				"[Meditate 15 min] I can gain a mental map of the area in 2mile radius around me."
+			]),
 			vision: ["Darkvision, magical and non magical", 120],
 			recovery: "long rest"
 		},
@@ -362,17 +387,70 @@ AddSubClass(className, subclass1Name, {
 			name: "Elemental Armour",
 			source: ["FF", 147],
 			minlevel: 10,
-			description:
-				tabbedLine + "I can expend 1 Confession charge to grant a creature resistance to cold, radiant OR thunder during WIS rounds.",
+			description: desc([
+				"I can expend 1 Confession charge to grant a creature resistance to cold, radiant OR thunder during WIS rounds."
+			]),
 			action: ["action", "Elemental Armour"]
 		},
 		subclassfeature14: {
 			name: "Aetherial Conjuration",
 			source: ["FF", 147],
 			minlevel: 14,
-			description:
-				tabbedLine + "I can expend Confession charges to cast a spell which level is half the number of expended charge (rounded up).",
+			description: desc([
+				"I can expend Confession charges to cast a spell which level is half the number of expended charge (rounded up)."
+			]),
 			action: ["bonus action", "Aetherial Conjuration"]
+		},
+	}
+});
+AddSubClass(className, subclasses[1].subclassName, {
+	regExpSearch: /^(?=.*spirit)(?=.*master).*$/i,
+	subname: subclasses[1].subclassTitle,
+	fullname: subclasses[1].subclassTitle,
+	spellcastingExtra: [
+		"heroism", "sanctuary",
+		"enhance ability", "protection from poison",
+		"aura of vitality", "beacon of hope",
+		"regen", "tetragrammaton",
+		"assize", "asylum"
+	],
+	source: ["FF", 160],
+	features: {
+		subclassfeature2: {
+			name: "Soothe Sayer",
+			source: ["FF", 160],
+			minlevel: 2,
+			description: desc([
+				"When I cast a healing spell to a creature, the target regains extra Prof+SL HP"
+			])
+			// TODO: add code for this
+		},
+		subclassfeature6: {
+			name: "Medicine Master",
+			source: ["FF", 160],
+			minlevel: 6,
+			description: desc([
+				"Advantage on Medicine checks to stabilize creatures and diagnosing diseases."
+			]),
+			skills: ["medicine"]
+		},
+		subclassfeature10: {
+			name: "Clerical Smite",
+			source: ["FF", 160],
+			minlevel: 10,
+			description: desc([
+				"[1 Confession charge] When casting a healing spell with die roll, wis. save or take that healing as dmg; save halves.",
+				"Bonus from Soothe Sayer is applied as bonus dmg."
+			])
+		},
+		subclassfeature14: {
+			name: "Touch of the Padjal",
+			source: ["FF", 147],
+			minlevel: 14,
+			description: desc([
+				"[1 Confession charge] Next healing spell uses max. number of the rolled dices."
+			]),
+			action: ["bonus action"]
 		},
 	}
 });
